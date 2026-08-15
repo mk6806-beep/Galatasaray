@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Galatasaray Fussballschule Mainz &amp; Wiesbaden</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --K:#000;--K2:#060606;--K3:#0f0f0f;--K4:#161616;
+  --R:#E30A17;--R2:#b5000f;--RG:rgba(227,10,23,.25);
+  --Y:#F5A800;--Y2:#FFD060;
+  --W:#fff;--DIM:rgba(255,255,255,.60);--MID:rgba(255,255,255,.80);
+  --BD:rgba(255,255,255,.07);--BDR:rgba(227,10,23,.18);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Montserrat',sans-serif;background:var(--K);color:var(--W);overflow-x:hidden;cursor:none;line-height:1.6}
+
+/* CURSOR */
+#cur{position:fixed;width:10px;height:10px;border-radius:50%;background:var(--R);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s,background .2s}
+#cur-r{position:fixed;width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(227,10,23,.55);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .22s,height .22s,border-color .2s}
+body.hov #cur{width:20px;height:20px;background:var(--Y)}
+body.hov #cur-r{width:56px;height:56px;border-color:rgba(245,168,0,.55)}
+@media(hover:none){#cur,#cur-r{display:none}body{cursor:auto}}
+::-webkit-scrollbar{width:2px}::-webkit-scrollbar-track{background:#000}::-webkit-scrollbar-thumb{background:linear-gradient(var(--R),var(--Y))}
+
+/* COOKIE BANNER */
+#cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9000;background:rgba(10,10,10,.97);border-top:1px solid rgba(227,10,23,.2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:1.4rem 3.5rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;transform:translateY(100%);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+#cookie-banner.visible{transform:translateY(0)}
+.cookie-text{font-size:.78rem;color:var(--DIM);line-height:1.65;flex:1;min-width:220px}
+.cookie-text strong{color:var(--W);font-weight:600}
+.cookie-text a{color:var(--Y);text-decoration:none;transition:color .2s}.cookie-text a:hover{color:var(--W)}
+.cookie-btns{display:flex;gap:.8rem;flex-shrink:0;flex-wrap:wrap}
+.cookie-accept{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;background:var(--R);color:#fff;padding:.65rem 1.6rem;border:none;cursor:pointer;transition:background .2s;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px))}
+.cookie-accept:hover{background:var(--R2)}
+.cookie-decline{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;background:transparent;color:var(--DIM);padding:.65rem 1.4rem;border:1px solid rgba(255,255,255,.1);cursor:pointer;transition:color .2s,border-color .2s}
+.cookie-decline:hover{color:var(--W);border-color:rgba(255,255,255,.25)}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;right:0;z-index:800;display:flex;align-items:center;justify-content:space-between;padding:1.4rem 3.5rem;transition:background .5s,padding .4s,border-color .5s;border-bottom:1px solid transparent}
+#nav.stuck{background:rgba(0,0,0,.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:.9rem 3.5rem;border-bottom-color:rgba(227,10,23,.15)}
+.nlogo{display:flex;align-items:center;gap:.9rem;text-decoration:none}
+.nlogo img{height:44px;width:auto;filter:drop-shadow(0 2px 14px rgba(227,10,23,.3));transition:filter .3s,transform .3s}
+.nlogo:hover img{filter:drop-shadow(0 2px 28px rgba(227,10,23,.6));transform:scale(1.05)}
+.nbrand{display:flex;flex-direction:column}
+.nbrand-main{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.92rem;letter-spacing:.12em;text-transform:uppercase;color:var(--W);line-height:1}
+.nbrand-sub{font-size:.48rem;font-weight:500;color:var(--Y);letter-spacing:.2em;font-style:italic;margin-top:3px;text-transform:uppercase}
+.nlinks{display:flex;gap:2.2rem;align-items:center}
+.nlinks a{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--DIM);text-decoration:none;transition:color .2s;position:relative;padding-bottom:4px}
+.nlinks a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:linear-gradient(90deg,var(--R),var(--Y));transition:width .3s ease}
+.nlinks a:hover{color:var(--W)}.nlinks a:hover::after{width:100%}
+.nlinks a.active{color:var(--Y)}.nlinks a.active::after{width:100%;background:var(--Y)}
+.nlinks a.spon-link{color:rgba(245,168,0,.8)}
+.ncta{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;background:var(--R);color:#fff;padding:.62rem 1.6rem;text-decoration:none;border:none;transition:background .2s,transform .15s,box-shadow .2s;display:inline-block;cursor:pointer;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px))}
+.ncta:hover{background:var(--R2);transform:translateY(-2px);box-shadow:0 8px 24px var(--RG)}
+
+/* HAMBURGER */
+.hbtn{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none}
+.hbtn span{display:block;width:22px;height:1.5px;background:var(--W);transition:all .3s}
+.hbtn.open span:nth-child(1){transform:rotate(45deg) translate(4.5px,4.5px)}
+.hbtn.open span:nth-child(2){opacity:0}
+.hbtn.open span:nth-child(3){transform:rotate(-45deg) translate(4.5px,-4.5px)}
+.mmenu{display:none;position:fixed;inset:0;background:rgba(0,0,0,.98);z-index:750;flex-direction:column;align-items:center;justify-content:center;gap:2rem;opacity:0;transition:opacity .3s;pointer-events:none}
+.mmenu.open{opacity:1;pointer-events:all}
+.mmenu a,.mmenu button.ncta{font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--W);text-decoration:none;transition:color .2s;background:none;border:none;cursor:pointer}
+.mmenu a:hover,.mmenu button.ncta:hover{color:var(--Y)}
+.mmenu button.ncta{background:var(--R)!important;color:#fff!important;padding:.7rem 2.8rem;font-size:1.4rem!important;clip-path:none;margin-top:.5rem}
+
+/* LAYOUT */
+.sec{padding:6.5rem 0}.sec-alt{background:var(--K2)}
+.wrap{max-width:1160px;margin:0 auto;padding:0 3.5rem}
+.eyebrow{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-size:.76rem;font-weight:600;color:var(--Y);display:flex;align-items:center;gap:.8rem;margin-bottom:.6rem;letter-spacing:.08em}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--Y);flex-shrink:0}
+.sec-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.4rem,4.8vw,4.8rem);line-height:.9;letter-spacing:.01em;text-transform:uppercase;margin-bottom:.8rem}
+.sec-h .r{color:var(--R)}.sec-h .y{color:var(--Y)}
+.sec-p{font-size:.88rem;color:var(--DIM);line-height:1.95;max-width:500px;font-style:italic}
+.sec-rule{display:block;width:42px;height:2px;background:linear-gradient(90deg,var(--R),var(--Y));margin:1.5rem 0 2.8rem;border:none}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.rvl{opacity:0;transform:translateX(-30px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.rvr{opacity:0;transform:translateX(30px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.rv.on,.rvl.on,.rvr.on{opacity:1;transform:translate(0)}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
+.d4{transition-delay:.28s}.d5{transition-delay:.35s}.d6{transition-delay:.42s}
+
+/* BUTTONS */
+.btn-r{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;background:var(--R);color:#fff;padding:.95rem 2.4rem;text-decoration:none;border:1px solid var(--R);position:relative;overflow:hidden;transition:background .2s,box-shadow .2s,transform .15s;display:inline-block;cursor:pointer;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px))}
+.btn-r::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.14) 50%,transparent 65%);transform:translateX(-100%);transition:transform .5s}
+.btn-r:hover{background:var(--R2);box-shadow:0 10px 36px var(--RG);transform:translateY(-2px)}.btn-r:hover::before{transform:translateX(100%)}
+.btn-y{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;background:var(--Y);color:#000;padding:.95rem 2.4rem;text-decoration:none;border:none;transition:background .2s,transform .15s,box-shadow .2s;display:inline-block;cursor:pointer;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px))}
+.btn-y:hover{background:var(--Y2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(245,168,0,.25)}
+.btn-ghost{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;background:transparent;color:var(--MID);padding:.95rem 2.4rem;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:color .2s,border-color .2s,transform .15s;display:inline-block;cursor:pointer}
+.btn-ghost:hover{color:var(--Y);border-color:rgba(245,168,0,.3);transform:translateY(-2px)}
+
+/* FOOTER */
+footer{background:var(--K3);border-top:1px solid rgba(227,10,23,.12);padding:2.8rem 3.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.fl{display:flex;align-items:center;gap:1.1rem}
+.fl img{height:48px;width:auto;filter:drop-shadow(0 0 10px rgba(227,10,23,.3))}
+.fc{font-family:'Barlow Condensed',sans-serif;font-size:.66rem;letter-spacing:.1em;color:var(--DIM);line-height:1.7;text-transform:uppercase}
+.fc strong{color:var(--W);display:block;font-size:.8rem;margin-bottom:.2rem;letter-spacing:.07em}
+.footer-right{display:flex;flex-direction:column;align-items:flex-end;gap:.6rem}
+.footer-links{display:flex;gap:1.8rem;flex-wrap:wrap;justify-content:flex-end}
+.footer-links a{font-family:'Barlow Condensed',sans-serif;font-size:.64rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--DIM);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--Y)}
+.footer-copy{font-family:'Barlow Condensed',sans-serif;font-size:.58rem;letter-spacing:.1em;color:rgba(255,255,255,.2);text-transform:uppercase}
+
+/* FORM */
+.cf-box{background:var(--K3);border:1px solid var(--BD);padding:2.8rem;position:relative;overflow:hidden}
+.cf-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--R),var(--Y))}
+.cf-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.cf-full{grid-column:1/-1}
+.cf-group{display:flex;flex-direction:column;gap:.45rem}
+.cf-label{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--DIM)}
+.cf-input,.cf-select,.cf-textarea{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:var(--W);font-family:'Montserrat',sans-serif;font-size:.84rem;padding:.8rem 1rem;outline:none;transition:border-color .25s,background .25s;-webkit-appearance:none;appearance:none;width:100%;font-style:italic;-webkit-appearance:none}
+.cf-input:focus,.cf-select:focus,.cf-textarea:focus{border-color:rgba(245,168,0,.45);background:rgba(245,168,0,.02)}
+.cf-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath fill='%23F5A800' d='M1 1l4.5 4.5L10 1'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center;background-size:11px;background-color:rgba(255,255,255,.03);cursor:pointer;padding-right:2.3rem}
+.cf-select option{background:#0f0f0f;color:var(--W)}
+.cf-textarea{resize:vertical;min-height:110px}
+.cf-bday{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem}
+.cf-submit{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;background:var(--R);color:#fff;padding:1rem 2.8rem;border:none;cursor:pointer;position:relative;overflow:hidden;transition:background .2s,box-shadow .2s;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));margin-top:1.1rem}
+.cf-submit::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.14) 50%,transparent 65%);transform:translateX(-100%);transition:transform .5s}
+.cf-submit:hover{background:var(--R2);box-shadow:0 8px 28px var(--RG)}.cf-submit:hover::before{transform:translateX(100%)}
+.cf-submit-y{background:var(--Y);color:#000}.cf-submit-y:hover{background:var(--Y2);box-shadow:0 8px 28px rgba(245,168,0,.25)}
+.cf-success{display:none;flex-direction:column;align-items:center;text-align:center;padding:3rem 2rem;gap:.9rem}
+.cf-success.show{display:flex}
+@keyframes popin{from{transform:scale(0)}to{transform:scale(1)}}
+.cf-success-ico{font-size:3rem;animation:popin .5s cubic-bezier(.16,1,.3,1)}
+.cf-success-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.9rem;text-transform:uppercase;color:var(--Y)}
+.cf-success-sub{font-size:.84rem;color:var(--DIM);font-style:italic;max-width:360px;line-height:1.75}
+
+/* RESPONSIVE BASE */
+@media(max-width:900px){
+  #nav,#nav.stuck{padding:.9rem 1.6rem}
+  .nlinks{display:none}.hbtn{display:flex}.mmenu{display:flex}
+  .wrap{padding:0 1.4rem}.sec{padding:4.5rem 0}
+  footer{padding:2rem 1.4rem;flex-direction:column;align-items:flex-start}
+  .footer-right{align-items:flex-start}
+  .cf-grid{grid-template-columns:1fr}.cf-full{grid-column:1}
+  #cookie-banner{padding:1.2rem 1.4rem;flex-direction:column;align-items:flex-start;gap:1rem}
+  .cookie-btns{width:100%}
+  .cookie-accept,.cookie-decline{flex:1;text-align:center}
+}
+@media(max-width:520px){
+  .nbrand-main{font-size:.78rem}.ncta{display:none}
+  .wrap{padding:0 1rem}.sec{padding:3.5rem 0}
+  .sec-h{font-size:clamp(2rem,9.5vw,3.2rem)}
+  .cf-bday{grid-template-columns:1fr 1fr 1fr}
+  footer{padding:1.5rem 1rem}
+  .footer-links{gap:1rem}
+}
+
+/* HERO */
+.hero{min-height:100svh;display:grid;grid-template-columns:56% 44%;position:relative;overflow:hidden}
+.hbg{position:absolute;inset:0;z-index:0}
+.hbg-grad{position:absolute;inset:0;background:radial-gradient(ellipse 65% 80% at 85% 20%,rgba(227,10,23,.13) 0%,transparent 55%),radial-gradient(ellipse 50% 60% at 5% 85%,rgba(245,168,0,.05) 0%,transparent 50%),#000}
+.hbg-lines{position:absolute;inset:0;opacity:.025;background-image:linear-gradient(rgba(227,10,23,1) 1px,transparent 1px),linear-gradient(90deg,rgba(227,10,23,1) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 80% 80% at 65% 35%,black 5%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse 80% 80% at 65% 35%,black 5%,transparent 70%)}
+.orb{position:absolute;border-radius:50%;pointer-events:none}
+.orb1{width:700px;height:700px;background:radial-gradient(circle,rgba(227,10,23,.11) 0%,transparent 65%);top:-20%;right:-10%;animation:orb 12s ease-in-out infinite}
+.orb2{width:450px;height:450px;background:radial-gradient(circle,rgba(245,168,0,.05) 0%,transparent 65%);bottom:-10%;left:-8%;animation:orb 15s 4s ease-in-out infinite}
+@keyframes orb{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.12) translateY(-20px)}}
+.hslash{position:absolute;pointer-events:none}
+.hs1{top:-20%;right:9%;width:1.5px;height:140%;background:linear-gradient(180deg,transparent,rgba(227,10,23,.5),transparent);transform:rotate(-12deg);animation:sp 5s ease-in-out infinite}
+.hs2{top:-20%;right:15%;width:1px;height:140%;background:linear-gradient(180deg,transparent,rgba(245,168,0,.15),transparent);transform:rotate(-12deg);animation:sp 5s .9s ease-in-out infinite}
+@keyframes sp{0%,100%{opacity:.2}50%{opacity:.8}}
+.hero-left{position:relative;z-index:5;display:flex;flex-direction:column;justify-content:center;padding:8rem 3rem 5rem 4.5rem}
+.hero-right{position:relative;z-index:4;display:flex;align-items:center;justify-content:center;padding:6rem 2rem 4rem}
+.logo-sphere{position:relative;display:flex;align-items:center;justify-content:center}
+.logo-sphere::before{content:'';position:absolute;width:130%;height:130%;border-radius:50%;background:radial-gradient(circle,rgba(227,10,23,.12) 0%,transparent 60%);animation:lglow 4s ease-in-out infinite}
+@keyframes lglow{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
+.logo-sphere::after{content:'';position:absolute;width:88%;height:88%;border-radius:50%;border:1px solid rgba(227,10,23,.1);animation:lring 8s linear infinite}
+@keyframes lring{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.logo-sphere img{width:clamp(200px,21vw,390px);height:auto;position:relative;z-index:1;filter:drop-shadow(0 0 55px rgba(227,10,23,.3));opacity:0;animation:logoin 1.1s .4s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes logoin{from{opacity:0;transform:scale(.72) rotate(-8deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+.h-super{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-size:.74rem;font-weight:600;color:var(--Y);letter-spacing:.1em;margin-bottom:1.6rem;opacity:0;animation:up .7s .1s ease forwards;display:flex;align-items:center;gap:.7rem}
+.h-super::before,.h-super::after{content:'';width:18px;height:1px;background:var(--Y);flex-shrink:0}
+@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.hero h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.6rem,7.2vw,7.8rem);line-height:.86;letter-spacing:.01em;text-transform:uppercase;opacity:0;animation:up .9s .2s cubic-bezier(.16,1,.3,1) forwards}
+.hero h1 .r{color:var(--R);text-shadow:0 0 70px rgba(227,10,23,.28)}
+.hero h1 .y{color:var(--Y)}
+.hero h1 .outline{color:#fff;-webkit-text-stroke:0;display:block;font-style:italic;font-weight:300}
+.h-div{display:flex;align-items:center;gap:.9rem;margin:2rem 0;opacity:0;animation:up .5s .4s ease forwards}
+.h-div-line{width:55px;height:1px;background:linear-gradient(90deg,var(--R),transparent)}
+.h-div-dot{width:4px;height:4px;background:var(--Y);border-radius:50%;flex-shrink:0}
+.hero-desc{font-size:.88rem;color:var(--DIM);line-height:2;max-width:400px;font-style:italic;opacity:0;animation:up .7s .45s ease forwards}
+.h-chips{display:flex;flex-wrap:wrap;gap:.38rem;margin-top:1.6rem;opacity:0;animation:up .6s .55s ease forwards}
+.h-chip{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--DIM);border:1px solid rgba(255,255,255,.09);padding:.3rem .8rem;transition:color .2s,border-color .2s}
+.h-chip:hover{color:var(--Y);border-color:rgba(245,168,0,.28)}
+.h-cta{display:flex;gap:.85rem;margin-top:2.2rem;flex-wrap:wrap;opacity:0;animation:up .6s .65s ease forwards}
+.h-scroll{position:absolute;bottom:1.8rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.45rem;opacity:0;animation:up .5s 1.4s ease forwards}
+.h-scroll-ln{width:1px;height:34px;background:linear-gradient(var(--R),transparent);animation:sb 2s ease-in-out infinite}
+@keyframes sb{0%,100%{opacity:.35;transform:scaleY(1)}50%{opacity:1;transform:scaleY(.6)}}
+.h-scroll-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.56rem;font-weight:700;letter-spacing:.24em;color:var(--DIM);text-transform:uppercase}
+
+/* STATS BAR */
+.stats-bar{background:var(--K3);border-top:1px solid rgba(227,10,23,.08);border-bottom:1px solid rgba(227,10,23,.08);display:grid;grid-template-columns:repeat(4,1fr);overflow:hidden}
+.stat-item{text-align:center;padding:1.8rem 1rem;border-right:1px solid rgba(255,255,255,.04);position:relative}
+.stat-item:last-child{border-right:none}
+.stat-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3rem;color:var(--R);line-height:1;display:block}
+.stat-l{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--DIM);margin-top:.4rem;display:block;line-height:1.4}
+
+/* UEFA */
+.ustrip{background:linear-gradient(105deg,#030c03,#050f05,#030c03);border-top:1px solid rgba(76,175,80,.1);border-bottom:1px solid rgba(76,175,80,.1);padding:1rem 3.5rem;display:flex;align-items:center;justify-content:center;gap:.9rem}
+.ustrip-ico{width:26px;height:26px;border-radius:50%;background:rgba(76,175,80,.1);border:1px solid rgba(76,175,80,.28);display:grid;place-items:center;font-size:.76rem;flex-shrink:0;font-style:normal}
+.ustrip p{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.06em;color:rgba(255,255,255,.72);text-align:center}
+.ustrip strong{color:#81c784;font-weight:800}
+
+/* FEATURE CARDS */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.4rem;margin-top:2.5rem}
+.feat-card{border:1px solid var(--BD);padding:2rem;background:var(--K3);position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;cursor:default}
+.feat-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:var(--R);transform:scaleY(0);transform-origin:bottom;transition:transform .4s ease}
+.feat-card:hover{transform:translateY(-5px);border-color:rgba(227,10,23,.2);box-shadow:0 14px 44px rgba(0,0,0,.5)}
+.feat-card:hover::before{transform:scaleY(1)}
+.feat-mark{width:32px;height:2px;background:linear-gradient(90deg,var(--R),var(--Y));margin-bottom:1.2rem}
+.feat-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.02rem;letter-spacing:.08em;text-transform:uppercase;color:var(--Y);margin-bottom:.8rem}
+.feat-list{list-style:none;padding:0}
+.feat-list li{font-size:.79rem;color:var(--DIM);padding:.28rem 0 .28rem 1rem;position:relative;line-height:1.6;border-bottom:1px solid rgba(255,255,255,.03)}
+.feat-list li:last-child{border-bottom:none}
+.feat-list li::before{content:'—';color:var(--R);position:absolute;left:0;font-size:.65rem;line-height:1.6}
+
+/* HIGHLIGHT BOX */
+.hl-box{border-left:3px solid var(--Y);padding:1.4rem 1.8rem;background:rgba(245,168,0,.02);margin-bottom:2.8rem;transition:background .25s}
+.hl-box:hover{background:rgba(245,168,0,.04)}
+.hl-box h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1rem;letter-spacing:.07em;text-transform:uppercase;color:var(--Y);margin-bottom:.5rem}
+.hl-box p{font-size:.82rem;color:var(--DIM);line-height:1.85;font-style:italic}
+.hl-box strong{color:var(--W);font-style:normal}
+.hl-box.red{border-left-color:var(--R)}
+
+/* PACKAGES */
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:1.4rem;perspective:1000px}
+.pkg{border:1px solid var(--BD);background:var(--K3);display:flex;flex-direction:column;position:relative;overflow:hidden;transform-style:preserve-3d;transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s}
+.pkg::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.05)}
+.pkg.best{border-color:rgba(227,10,23,.22);box-shadow:0 0 0 1px rgba(227,10,23,.06)}
+.pkg.best::before{background:linear-gradient(90deg,var(--R),var(--Y))}
+.pkg:hover{box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 0 1px rgba(245,168,0,.1);z-index:1}
+.pkg-inner{padding:2rem 1.8rem;flex:1;display:flex;flex-direction:column}
+.pkg-no{font-family:'Barlow Condensed',sans-serif;font-size:.56rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--DIM);margin-bottom:.7rem}
+.pkg-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.9rem;letter-spacing:.02em;text-transform:uppercase;color:var(--W);line-height:.9;margin-bottom:.5rem}
+.pkg-units{font-size:.74rem;color:var(--DIM);font-style:italic;margin-bottom:1.2rem}
+.pkg-price{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3.8rem;line-height:1;color:var(--W);margin-bottom:.2rem}
+.pkg-price sup{font-size:1.4rem;vertical-align:super;color:var(--Y)}
+.pkg-mo{font-size:.7rem;color:var(--DIM);font-style:italic;margin-bottom:1.2rem}
+.pkg-sep{height:1px;background:rgba(255,255,255,.05);margin:.4rem 0 1rem}
+.pkg-feat{font-size:.77rem;color:var(--MID);padding:.35rem 0;border-bottom:1px solid rgba(255,255,255,.03);display:flex;align-items:center;gap:.55rem}
+.pkg-feat::before{content:'';width:14px;height:1px;background:var(--Y);flex-shrink:0}
+.pkg-spacer{flex:1;min-height:.8rem}
+.pkg-cta{padding:0 1.8rem 1.8rem}
+.pkg-btn{width:100%;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;background:var(--R);color:#fff;padding:.9rem;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.45rem;position:relative;overflow:hidden;transition:background .2s,box-shadow .2s;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px))}
+.pkg-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.14) 50%,transparent 65%);transform:translateX(-100%);transition:transform .5s}
+.pkg-btn:hover{background:var(--R2);box-shadow:0 5px 20px var(--RG)}.pkg-btn:hover::before{transform:translateX(100%)}
+.pkg.best .pkg-btn{background:linear-gradient(105deg,var(--R),var(--R2))}
+.pkg-btn svg{width:13px;height:13px;flex-shrink:0}
+
+/* FAMILY */
+.fam-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.8rem;align-items:start;margin-top:2rem}
+.fam-table{border:1px solid var(--BD);overflow:hidden}
+.fam-th{display:flex;justify-content:space-between;padding:.8rem 1.4rem;background:rgba(255,255,255,.02);font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--DIM);border-bottom:1px solid var(--BD)}
+.fam-tr{display:flex;justify-content:space-between;align-items:center;padding:.9rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.03);transition:background .2s}
+.fam-tr:last-child{border-bottom:none}.fam-tr:hover{background:rgba(255,255,255,.02)}
+.fam-kid{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--MID)}
+.fam-disc{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:900;color:var(--Y)}
+.fam-ex{border:1px solid rgba(245,168,0,.14);padding:2rem;background:rgba(245,168,0,.02)}
+.fam-ex-lbl{font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--Y);margin-bottom:1rem}
+.fam-ex p{font-size:.84rem;color:var(--DIM);font-style:italic;line-height:1.9}
+.fam-ex .big{color:var(--W);font-size:1rem;font-style:normal}
+.fam-save{margin-top:1.2rem;padding:.9rem 1.1rem;background:rgba(227,10,23,.06);border-left:2px solid var(--R);font-family:'Barlow Condensed',sans-serif;font-size:.84rem;font-weight:700;color:var(--W)}
+.fam-save small{display:block;font-size:.64rem;font-weight:400;color:var(--DIM);margin-top:.2rem;letter-spacing:.05em}
+
+/* CAMPS */
+.camps-header{display:grid;grid-template-columns:auto 1fr;gap:1.8rem;align-items:center;margin-bottom:2.2rem}
+.camps-logo{height:60px;width:auto;filter:drop-shadow(0 0 15px rgba(227,10,23,.32))}
+.camps-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.ccard{border:1px solid var(--BD);background:var(--K3);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s}
+.ccard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:rgba(245,168,0,.25)}
+.ccard.mem{border-color:rgba(245,168,0,.16)}
+.ccard.mem::before{background:linear-gradient(90deg,var(--Y),var(--Y2))}
+.ccard:hover{transform:translateY(-5px);box-shadow:0 18px 55px rgba(0,0,0,.5)}
+.ccard-head{padding:1.5rem 1.7rem 0;display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
+.ccard-head h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;letter-spacing:.03em;text-transform:uppercase}
+.ccard-badge{font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(105deg,var(--Y),var(--Y2));color:#000;padding:.25rem .7rem;white-space:nowrap;flex-shrink:0}
+.ccard-body{padding:1rem 1.7rem;flex:1}
+.ccard-price{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3rem;line-height:1;color:var(--W);margin:.5rem 0 .2rem}
+.ccard-price-txt{font-size:1.5rem!important;letter-spacing:.01em}
+.ccard-price sup{font-size:1.1rem;vertical-align:super;color:var(--Y)}
+.ccard-sub{font-size:.7rem;color:var(--DIM);font-style:italic;margin-bottom:.9rem}
+.ccard-list{list-style:none;padding:0}
+.ccard-list li{font-size:.77rem;color:var(--MID);padding:.28rem 0;display:flex;align-items:center;gap:.5rem}
+.ccard-list li::before{content:'';width:14px;height:1px;background:rgba(245,168,0,.5);flex-shrink:0}
+.ccard-cta{padding:1rem 1.7rem 1.7rem}
+.ccard-btn{width:100%;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;background:transparent;color:var(--W);padding:.85rem;border:1px solid var(--BD);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.45rem;transition:all .2s}
+.ccard-btn:hover{background:var(--R);border-color:var(--R)}
+.ccard-btn svg{width:13px;height:13px;flex-shrink:0}
+
+
+/* SPON TEASER ENHANCED */
+.st-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:var(--Y);margin-bottom:1.8rem;display:flex;align-items:center;gap:.7rem}
+.st-eyebrow::before{content:'';width:18px;height:1px;background:var(--Y)}
+.st-eyebrow::after{content:'';width:30px;height:1px;background:rgba(245,168,0,.25)}
+.spon-teaser-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+.st-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.4rem}
+.st-pill{font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--DIM);border:1px solid rgba(255,255,255,.09);padding:.28rem .72rem;transition:color .2s,border-color .2s,background .2s}
+.st-pill:hover{color:var(--Y);border-color:rgba(245,168,0,.28);background:rgba(245,168,0,.04)}
+.st-cta-wrap{background:rgba(0,0,0,.4);border:1px solid rgba(245,168,0,.16);padding:2.2rem;position:relative}
+.st-cta-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--Y),transparent)}
+.st-cta-tag{font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--Y);margin-bottom:.6rem}
+.st-cta-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.4rem;text-transform:uppercase;letter-spacing:.02em;color:var(--W);line-height:1;margin-bottom:.9rem}
+.st-cta-desc{font-size:.78rem;color:var(--DIM);font-style:italic;line-height:1.8;margin-bottom:1.5rem}
+.st-cta-btn{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;background:var(--Y);color:#000;padding:.95rem 1.5rem;text-decoration:none;text-align:center;transition:background .2s,transform .15s;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px));margin-bottom:.75rem}
+.st-cta-btn:hover{background:var(--Y2);transform:translateY(-2px)}
+.st-cta-note{font-family:'Barlow Condensed',sans-serif;font-size:.56rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.25);text-align:center}
+@media(max-width:900px){
+  .spon-teaser-grid{grid-template-columns:1fr;gap:2rem}
+  .spon-teaser{padding:2.5rem 1.8rem}
+}
+@media(max-width:520px){
+  .spon-teaser{padding:2rem 1.2rem}
+  .st-cta-wrap{padding:1.6rem}
+}
+
+/* SPONSORING TEASER */
+.spon-teaser{background:linear-gradient(135deg,var(--K3),var(--K4));border:1px solid rgba(227,10,23,.16);padding:3.5rem;position:relative;overflow:hidden;margin-top:4.5rem}
+.spon-teaser::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--R),var(--Y),var(--R))}
+.spon-teaser-grid{display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center}
+.spon-teaser h3{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;text-transform:uppercase;letter-spacing:.02em;color:var(--W);margin-bottom:.7rem;line-height:.95}
+.spon-teaser h3 .r{color:var(--R)}
+.spon-teaser p{font-size:.85rem;color:var(--DIM);font-style:italic;line-height:1.9;max-width:480px}
+.spon-teaser-cta{display:flex;flex-direction:column;gap:.7rem;align-items:center;text-align:center}
+.spon-teaser-cta a{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;background:var(--Y);color:#000;padding:1rem 2.2rem;text-decoration:none;display:block;transition:background .2s,transform .15s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px));white-space:nowrap}
+.spon-teaser-cta a:hover{background:var(--Y2);transform:translateY(-2px)}
+.spon-teaser-cta small{font-family:'Barlow Condensed',sans-serif;font-size:.58rem;color:var(--DIM);letter-spacing:.1em;text-transform:uppercase}
+
+/* HINTS */
+.hints-box{border:1px solid var(--BD);overflow:hidden}
+.hints-hdr{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--DIM);padding:.85rem 1.4rem;background:rgba(255,255,255,.02);border-bottom:1px solid var(--BD)}
+.hints-row{font-size:.8rem;color:var(--DIM);line-height:1.85;padding:.95rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.03);font-style:italic}
+.hints-row:last-child{border-bottom:none}
+
+/* RESPONSIVE MAIN */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .hero-left{padding:7.5rem 1.4rem 2rem;order:2}
+  .hero-right{padding:5rem 1.4rem 1rem;order:1}
+  .logo-sphere img{width:clamp(140px,36vw,240px)}
+  .hero h1{font-size:clamp(3rem,10.5vw,5.5rem)}
+  .h-scroll{display:none}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .fam-grid,.camps-grid{grid-template-columns:1fr}
+  .camps-header{grid-template-columns:1fr;gap:1rem}
+  .features-grid{grid-template-columns:1fr}
+  .spon-teaser-grid{grid-template-columns:1fr;gap:2rem}
+  .spon-teaser-cta{align-items:flex-start}
+  .ustrip{padding:.9rem 1.4rem;flex-wrap:wrap}
+}
+@media(max-width:520px){
+  .hero-left{padding:6.5rem 1rem 2rem}
+  .hero-right{padding:4.5rem 1rem .5rem}
+  .hero h1{font-size:clamp(2.8rem,12vw,4.2rem)}
+  .stats-bar{grid-template-columns:1fr 1fr}
+  .stat-n{font-size:2.4rem}
+  .pkg-grid{grid-template-columns:1fr}
+  .spon-teaser{padding:2rem}
+}
+
+
+/* ==============================
+   KONTAKT & UBER UNS SECTION
+============================== */
+.über-uns{background:#050505;border-top:1px solid rgba(227,10,23,.22);position:relative;overflow:hidden;padding-bottom:0}
+.über-uns::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--R),rgba(245,168,0,.6),var(--R))}
+.über-uns::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(227,10,23,.05) 0%,transparent 60%);pointer-events:none}
+
+/* HERO STRIP */
+.uu-hero{padding:4.5rem 0 3.5rem;border-bottom:1px solid rgba(255,255,255,.05);position:relative;z-index:1}
+.uu-hero-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.uu-hero-left{display:flex;align-items:center;gap:1.6rem}
+.uu-hero-logo{height:72px;width:auto;filter:drop-shadow(0 0 24px rgba(227,10,23,.4))}
+.uu-hero-text{}
+.uu-hero-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.4rem);text-transform:uppercase;letter-spacing:.04em;color:var(--W);line-height:1}
+.uu-hero-sub{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--Y);margin-top:.3rem}
+.uu-hero-right{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.uu-hero-badge{display:inline-flex;align-items:center;gap:.55rem;font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;border:1px solid;padding:.45rem 1rem}
+.uu-hero-badge.green{color:rgba(129,199,132,.9);border-color:rgba(76,175,80,.25);background:rgba(76,175,80,.05)}
+.uu-hero-badge.green::before{content:'';width:6px;height:6px;border-radius:50%;background:#81c784;flex-shrink:0}
+.uu-hero-badge.red{color:rgba(255,255,255,.75);border-color:rgba(227,10,23,.3);background:rgba(227,10,23,.05)}
+.uu-hero-cta{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;background:var(--R);color:#fff;padding:.65rem 1.7rem;text-decoration:none;border:none;cursor:pointer;transition:background .2s,transform .15s;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px));display:inline-block}
+.uu-hero-cta:hover{background:var(--R2);transform:translateY(-2px)}
+
+/* STATS ROW */
+.uu-stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid rgba(255,255,255,.05);position:relative;z-index:1}
+.uu-stat{padding:2rem 1.5rem;text-align:center;border-right:1px solid rgba(255,255,255,.04);position:relative}
+.uu-stat:last-child{border-right:none}
+.uu-stat::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:2px;background:var(--R)}
+.uu-stat-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.8rem;color:var(--R);line-height:1;display:block}
+.uu-stat-l{font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--DIM);display:block;margin-top:.4rem;line-height:1.45}
+
+/* MAIN GRID */
+.uu-main{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;gap:0;border-bottom:1px solid rgba(255,255,255,.05);position:relative;z-index:1}
+.uu-col{padding:3rem 2.5rem;border-right:1px solid rgba(255,255,255,.05)}
+.uu-col:last-child{border-right:none}
+.uu-col-head{font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--Y);margin-bottom:1.6rem;display:flex;align-items:center;gap:.6rem}
+.uu-col-head::before{content:'';width:12px;height:1px;background:var(--Y);flex-shrink:0}
+
+/* ABOUT TEXT */
+.uu-about-text{font-size:.8rem;color:var(--DIM);line-height:1.95;font-style:italic;margin-bottom:1.4rem}
+.uu-about-tagline{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.04em;color:var(--W);text-transform:uppercase;line-height:1.3;border-left:2px solid var(--R);padding-left:.9rem;margin-bottom:1.4rem}
+.uu-about-fact{display:flex;align-items:center;gap:.6rem;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--DIM);margin-bottom:.5rem}
+.uu-about-fact svg{width:12px;height:12px;stroke:var(--Y);flex-shrink:0}
+
+/* CONTACT ITEMS */
+.uu-ci{display:flex;align-items:flex-start;gap:.85rem;margin-bottom:1.15rem;padding-bottom:1.15rem;border-bottom:1px solid rgba(255,255,255,.04)}
+.uu-ci:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.uu-ci-icon{width:32px;height:32px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);display:grid;place-items:center;flex-shrink:0}
+.uu-ci-icon svg{width:13px;height:13px;stroke:var(--Y)}
+.uu-ci-label{font-family:'Barlow Condensed',sans-serif;font-size:.52rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--DIM);display:block;margin-bottom:.2rem}
+.uu-ci-val{font-size:.8rem;color:var(--MID);font-style:italic;line-height:1.55}
+.uu-ci-val a{color:rgba(255,255,255,.82);text-decoration:none;transition:color .2s}
+.uu-ci-val a:hover{color:var(--Y)}
+
+/* PROGRAM LIST */
+.uu-prog-item{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.9rem;padding-bottom:.9rem;border-bottom:1px solid rgba(255,255,255,.04)}
+.uu-prog-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.uu-prog-icon{width:28px;height:28px;background:rgba(227,10,23,.08);border:1px solid rgba(227,10,23,.15);display:grid;place-items:center;flex-shrink:0;margin-top:.1rem}
+.uu-prog-icon svg{width:11px;height:11px;stroke:var(--R)}
+.uu-prog-title{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--W);display:block;margin-bottom:.15rem}
+.uu-prog-desc{font-size:.74rem;color:var(--DIM);font-style:italic;line-height:1.5}
+
+/* LINKS COL */
+.uu-link-row{display:flex;align-items:center;gap:.75rem;padding:.75rem 0;border-bottom:1px solid rgba(255,255,255,.04);text-decoration:none;transition:padding-left .2s}
+.uu-link-row:last-child{border-bottom:none}
+.uu-link-row:hover{padding-left:.4rem}
+.uu-link-row-arrow{width:20px;height:1px;background:rgba(255,255,255,.15);flex-shrink:0;transition:width .2s,background .2s}
+.uu-link-row:hover .uu-link-row-arrow{width:28px;background:var(--Y)}
+.uu-link-row-text{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--DIM);transition:color .2s}
+.uu-link-row:hover .uu-link-row-text{color:var(--W)}
+.uu-link-ext{font-family:'Barlow Condensed',sans-serif;font-size:.56rem;font-weight:700;letter-spacing:.14em;color:var(--DIM);margin-left:auto;text-transform:uppercase;flex-shrink:0}
+
+/* BOTTOM BAR */
+.uu-bottom{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 0 2rem;flex-wrap:wrap;gap:.8rem;position:relative;z-index:1}
+.uu-copy{font-family:'Barlow Condensed',sans-serif;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.18);padding-top:.2rem}
+.uu-bottom-links{display:flex;gap:1.4rem;flex-wrap:wrap}
+.uu-bottom-links a{font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.22);text-decoration:none;transition:color .2s}
+.uu-bottom-links a:hover{color:var(--Y)}
+
+/* RESPONSIVE */
+@media(max-width:1050px){
+  .uu-main{grid-template-columns:1fr 1fr;gap:0}
+  .uu-col{border-bottom:1px solid rgba(255,255,255,.05)}
+  .uu-col:nth-child(even){border-right:none}
+  .uu-col:nth-last-child(-n+2){border-bottom:none}
+}
+@media(max-width:900px){
+  .uu-hero-inner{flex-direction:column;align-items:flex-start}
+  .uu-stats{grid-template-columns:repeat(2,1fr)}
+  .uu-stat:nth-child(2){border-right:none}
+  .uu-stat:nth-child(1),.uu-stat:nth-child(2){border-bottom:1px solid rgba(255,255,255,.04)}
+}
+@media(max-width:700px){
+  .uu-main{grid-template-columns:1fr}
+  .uu-col{border-right:none!important;border-bottom:1px solid rgba(255,255,255,.05)!important}
+  .uu-col:last-child{border-bottom:none!important}
+  .uu-col{padding:2.5rem 1.4rem}
+  .uu-hero{padding:3.5rem 0 2.5rem}
+  .uu-hero-left{flex-direction:column;align-items:flex-start;gap:1rem}
+}
+@media(max-width:520px){
+  .uu-stats{grid-template-columns:1fr 1fr}
+  .uu-stat-n{font-size:2.2rem}
+  .uu-bottom{flex-direction:column;align-items:flex-start;gap:.6rem}
+  .uu-bottom-links{gap:.9rem}
+  .uu-hero-right{flex-direction:column;align-items:flex-start}
+}
+
+
+
+.train-loc{display:flex;align-items:center;gap:1.4rem;background:rgba(0,0,0,.4);border:1px solid rgba(245,168,0,.18);padding:1.5rem 1.8rem;margin-bottom:2.2rem;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px))}
+.tl-ic{flex:none;width:46px;height:46px;color:var(--Y);border:1px solid rgba(245,168,0,.3);display:flex;align-items:center;justify-content:center}
+.tl-ic svg{width:24px;height:24px}
+.tl-body{flex:1;min-width:0}
+.tl-tag{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--Y);margin-bottom:.3rem}
+.tl-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;color:var(--W);letter-spacing:.01em;line-height:1.15}
+.tl-addr{font-size:.82rem;color:var(--DIM);margin-top:.2rem}
+.tl-btn{flex:none;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#000;background:var(--Y);padding:.75rem 1.25rem;text-decoration:none;transition:background .2s,transform .15s}
+.tl-btn:hover{background:var(--Y2);transform:translateY(-2px)}
+@media(max-width:640px){.train-loc{flex-direction:column;align-items:flex-start;gap:1rem}.tl-btn{align-self:stretch;text-align:center}}
+
+.pkg-disc{margin:.9rem 0 .2rem;display:flex;flex-direction:column;gap:.45rem}
+.pkg-disc-row{display:flex;align-items:center;justify-content:space-between;padding:.5rem .8rem;background:rgba(245,168,0,.07);border:1px solid rgba(245,168,0,.18);font-family:'Barlow Condensed',sans-serif}
+.pkg-disc-row span{font-size:.74rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--DIM)}
+.pkg-disc-row b{font-size:1.05rem;font-weight:800;color:var(--Y)}
+.pkg-disc-row b small{font-size:.62rem;font-weight:600;color:var(--DIM);margin-left:1px}
+
+
+
+/* ===== RESPONSIVE STABILITY HARDENING ===== */
+*{box-sizing:border-box}
+html{overflow-x:hidden;scrollbar-gutter:stable}
+body{overflow-x:hidden;width:100%;max-width:100%;position:relative}
+img,svg,video{max-width:100%;height:auto}
+/* prevent reveal animations from causing horizontal overflow / layout shift */
+.rv,.rvl,.rvr{will-change:opacity,transform;backface-visibility:hidden}
+/* respect reduced motion: no transforms, no shift */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .rv,.rvl,.rvr{opacity:1!important;transform:none!important}
+  html{scroll-behavior:auto!important}
+}
+/* ensure grids never overflow on small screens */
+.pkg-grid,.features-grid,.camps-grid,.spon-teaser-grid,.fnd-grid,.hp-grid,.uu-main{max-width:100%}
+/* fix any element that might exceed viewport */
+.wrap{width:100%}
+@media(max-width:640px){
+  .wrap{padding-left:1.25rem;padding-right:1.25rem}
+}
+
+
+/* GRUENDER */
+.fnd-banner{position:relative;width:100%;margin-top:2.5rem;overflow:hidden;border:1px solid var(--BD);clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px))}
+.fnd-banner img{width:100%;height:auto;display:block;filter:grayscale(.08) contrast(1.04)}
+.fnd-eyebrow-badge{display:inline-block;background:var(--R);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.45rem 1rem;margin-bottom:.9rem}
+.fnd-body{margin-top:2.2rem}
+.fnd-head{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.fnd-name{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.4rem;text-transform:uppercase;letter-spacing:.02em;line-height:1;color:var(--W)}
+.fnd-role{font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--Y);margin-top:.4rem}
+.fnd-tags{display:flex;flex-wrap:wrap;gap:.6rem}
+.fnd-tag{font-family:'Barlow Condensed',sans-serif;font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--Y);border:1px solid rgba(245,168,0,.28);background:rgba(245,168,0,.05);padding:.45rem .9rem}
+.fnd-cols{display:grid;grid-template-columns:1fr 1fr;gap:2.2rem}
+.fnd-text{font-size:.9rem;line-height:1.9;color:rgba(255,255,255,.8)}
+.fnd-text strong{color:var(--W);font-weight:600}
+@media(max-width:820px){.fnd-cols{grid-template-columns:1fr;gap:1rem}.fnd-name{font-size:2rem}}
+
+.pkg-disc-note{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,168,0,.75);text-align:center;margin-top:.3rem}
+
+.pkg-grid{grid-template-columns:repeat(3,1fr)!important}
+@media(max-width:980px){.pkg-grid{grid-template-columns:1fr!important;max-width:460px;margin-left:auto;margin-right:auto}}
+.pkg-feat-hl{color:var(--Y)!important;font-weight:600}
+.pkg-price-txt{font-size:2.1rem!important;line-height:1.05!important}
+.pkg-disc-flex{font-size:.8rem;line-height:1.7;color:var(--DIM);padding:.7rem .8rem;background:rgba(245,168,0,.07);border:1px solid rgba(245,168,0,.18)}
+
+.pkg-agenote{font-size:.72rem;line-height:1.5;color:var(--Y);background:rgba(245,168,0,.08);border-left:2px solid var(--Y);padding:.5rem .7rem;margin:.5rem 0 .2rem;font-weight:500}
+
+/* PROMO BADGE (Launch-Aktion) */
+.promo-badge{display:inline-flex;align-items:center;gap:.85rem;align-self:flex-start;max-width:460px;background:linear-gradient(100deg,rgba(227,10,23,.16),rgba(245,168,0,.1));border:1px solid rgba(245,168,0,.42);color:var(--W);text-decoration:none;padding:.72rem 1rem .72rem .95rem;margin-bottom:1.6rem;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));position:relative;opacity:0;animation:up .6s .05s ease forwards;transition:border-color .25s,box-shadow .25s,transform .2s;box-shadow:0 6px 26px rgba(227,10,23,.16)}
+.promo-badge:hover{border-color:var(--Y);box-shadow:0 10px 34px rgba(245,168,0,.24);transform:translateY(-2px)}
+.promo-badge-pulse{width:9px;height:9px;border-radius:50%;background:var(--R);flex-shrink:0;box-shadow:0 0 0 0 rgba(227,10,23,.6);animation:promoPulse 1.9s ease-out infinite}
+@keyframes promoPulse{0%{box-shadow:0 0 0 0 rgba(227,10,23,.55)}70%{box-shadow:0 0 0 10px rgba(227,10,23,0)}100%{box-shadow:0 0 0 0 rgba(227,10,23,0)}}
+.promo-badge-body{display:flex;flex-direction:column;gap:.2rem}
+.promo-badge-tag{font-family:'Barlow Condensed',sans-serif;font-size:.58rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--Y)}
+.promo-badge-txt{font-family:'Montserrat',sans-serif;font-size:.73rem;font-weight:500;line-height:1.5;color:rgba(255,255,255,.86)}
+.promo-badge-txt strong{color:var(--W);font-weight:700}
+.promo-badge-txt em{color:var(--Y2);font-style:normal;font-weight:700}
+.promo-badge-arrow{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.05rem;color:var(--Y);flex-shrink:0;transition:transform .2s;margin-left:.1rem}
+.promo-badge:hover .promo-badge-arrow{transform:translateX(4px)}
+@media(max-width:520px){.promo-badge{max-width:100%;gap:.65rem;padding:.65rem .8rem}.promo-badge-txt{font-size:.7rem}}
+
+/* ===== PROBETRAINING CALLOUT ===== */
+.probe-callout{position:relative;margin-top:1rem;background:linear-gradient(135deg,rgba(227,10,23,.1),rgba(15,15,15,.4));border:1px solid rgba(245,168,0,.3);clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));padding:2.4rem 2.4rem 2.6rem;overflow:hidden}
+.probe-callout-badge{display:inline-block;background:var(--R);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;padding:.35rem .8rem;margin-bottom:1.4rem}
+.probe-callout-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:2.4rem;align-items:center}
+.probe-callout-h{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.05;text-transform:uppercase;letter-spacing:.01em;color:var(--W);margin-bottom:1rem}
+.probe-callout-p{font-size:.92rem;line-height:1.7;color:rgba(255,255,255,.72);margin-bottom:1.4rem}
+.probe-points{display:flex;flex-direction:column;gap:.5rem}
+.probe-point{display:flex;align-items:center;gap:.6rem;font-size:.86rem;color:rgba(255,255,255,.85);font-weight:500}
+.probe-point i{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:rgba(245,168,0,.15);color:var(--Y);border-radius:50%;font-style:normal;font-size:.7rem;flex-shrink:0}
+.probe-cta-col{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.08);padding:1.8rem 1.6rem;text-align:center}
+.probe-cta-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.5rem;line-height:1.05;text-transform:uppercase;color:var(--W);margin-bottom:1.2rem}
+.probe-cta-btn{display:block;background:var(--R);color:#fff;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;padding:.85rem 1rem;transition:background .2s,transform .2s;clip-path:polygon(0 0,calc(100% - 7px) 0,100% 7px,100% 100%,7px 100%,0 calc(100% - 7px))}
+.probe-cta-btn:hover{background:var(--R2);transform:translateY(-2px)}
+.probe-cta-wa{display:block;margin-top:.7rem;color:#25D366;text-decoration:none;font-size:.8rem;font-weight:600}
+.probe-cta-wa:hover{text-decoration:underline}
+@media(max-width:760px){.probe-callout-grid{grid-template-columns:1fr;gap:1.6rem}}
+
+/* ===== OFFER GRID (ohne Preise) ===== */
+.offer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.4rem}
+.offer-card{position:relative;min-width:0;background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid rgba(255,255,255,.09);padding:1.8rem 1.6rem;display:flex;flex-direction:column;transition:border-color .25s,transform .25s}
+.offer-card:hover{border-color:rgba(245,168,0,.4);transform:translateY(-4px)}
+.offer-best{border-color:rgba(245,168,0,.45);background:linear-gradient(160deg,rgba(245,168,0,.08),rgba(255,255,255,.01))}
+.offer-flag{position:absolute;top:0;right:0;background:var(--Y);color:#000;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;padding:.3rem .7rem}
+.offer-tag{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--Y);margin-bottom:.5rem}
+.offer-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(1.45rem,1.1rem + 1vw,1.7rem);text-transform:uppercase;letter-spacing:.01em;color:var(--W);line-height:1.02;margin-bottom:.8rem;overflow-wrap:break-word;hyphens:auto}
+.offer-desc{font-size:.85rem;line-height:1.6;color:rgba(255,255,255,.74);margin-bottom:1.1rem}
+.offer-list{list-style:none;margin:0 0 1.4rem;padding:0;display:flex;flex-direction:column;gap:.5rem}
+.offer-list li{position:relative;padding-left:1.3rem;font-size:.83rem;line-height:1.4;color:rgba(255,255,255,.8)}
+.offer-list li::before{content:"";position:absolute;left:0;top:.5em;width:6px;height:6px;background:var(--R);transform:rotate(45deg)}
+.offer-btn{margin-top:auto;background:transparent;border:1px solid rgba(245,168,0,.5);color:var(--Y);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;padding:.75rem 1rem;cursor:pointer;transition:background .2s,color .2s}
+.offer-btn:hover{background:var(--Y);color:#000}
+
+/* ===== PROMO BANNER (bei den Angeboten) ===== */
+.promo-banner{position:relative;margin-top:3.5rem;background:linear-gradient(120deg,rgba(227,10,23,.16),rgba(245,168,0,.1));border:1px solid rgba(245,168,0,.42);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));padding:1.9rem 2.1rem;display:flex;align-items:center;gap:1.6rem;flex-wrap:wrap;box-shadow:0 10px 40px rgba(227,10,23,.15)}
+.promo-banner-pulse{width:12px;height:12px;border-radius:50%;background:var(--R);flex-shrink:0;box-shadow:0 0 0 0 rgba(227,10,23,.6);animation:promoPulse 1.9s ease-out infinite}
+.promo-banner-main{flex:1;min-width:280px}
+.promo-banner-tag{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--Y);margin-bottom:.5rem}
+.promo-banner-h{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:clamp(1.3rem,2.4vw,1.9rem);line-height:1.05;text-transform:uppercase;color:var(--W);margin-bottom:.6rem}
+.promo-banner-p{font-size:.86rem;line-height:1.6;color:rgba(255,255,255,.75);max-width:640px}
+.promo-banner-p strong{color:var(--W)}
+.promo-banner-cta{flex-shrink:0;background:var(--R);color:#fff;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.04em;text-transform:uppercase;padding:.9rem 1.5rem;transition:background .2s,transform .2s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.promo-banner-cta:hover{background:var(--R2);transform:translateY(-2px)}
+
+/* ===== SOCIAL BUTTONS (Kontakt) ===== */
+.quick-contact{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}
+.social-btn{display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 1.4rem;color:#fff;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.92rem;letter-spacing:.04em;text-transform:uppercase;transition:transform .2s,box-shadow .2s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.social-btn svg{width:20px;height:20px;flex-shrink:0}
+.social-btn:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.social-wa{background:#25D366}
+.social-ig{background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)}
+.social-tt{background:#010101;border:1px solid rgba(255,255,255,.25)}
+
+/* ===== SOCIAL (Footer) ===== */
+.uu-social{display:flex;gap:.6rem;margin-top:.4rem}
+.uu-social-btn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;color:#fff;transition:transform .2s}
+.uu-social-btn svg{width:19px;height:19px}
+.uu-social-btn:hover{transform:translateY(-3px)}
+.uu-wa{background:#25D366}
+.uu-ig{background:linear-gradient(45deg,#f09433,#dc2743,#bc1888)}
+.uu-tt{background:#010101;border:1px solid rgba(255,255,255,.3)}
+
+
+/* ===== UEBER UNS ===== */
+.au-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:2.6rem;align-items:start}
+.au-text p{font-size:.95rem;line-height:1.85;color:rgba(255,255,255,.82);margin-bottom:1.1rem}
+.au-text p:last-child{margin-bottom:0}
+.au-text strong{color:var(--W);font-weight:700}
+.au-card{position:sticky;top:100px;background:linear-gradient(160deg,rgba(227,10,23,.1),rgba(255,255,255,.02));border:1px solid rgba(245,168,0,.28);padding:2rem 1.8rem;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+.au-card-logo{width:86px;height:auto;display:block;margin:0 auto .9rem;filter:drop-shadow(0 6px 18px rgba(0,0,0,.5))}
+.au-card-badge{text-align:center;background:var(--R);color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;padding:.4rem .8rem;margin-bottom:1.3rem}
+.au-fact{display:flex;gap:.6rem;align-items:flex-start;font-size:.84rem;line-height:1.5;color:rgba(255,255,255,.82);margin-bottom:.7rem}
+.au-fact-ic{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;flex-shrink:0;background:rgba(245,168,0,.15);color:var(--Y);border-radius:50%;font-size:.62rem;margin-top:.12rem}
+.au-founder{margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--DIM);line-height:1.7}
+.au-founder strong{display:inline-block;margin-top:.25rem;color:var(--Y);font-size:1.15rem;letter-spacing:.04em}
+@media(max-width:820px){.au-grid{grid-template-columns:1fr;gap:1.8rem}.au-card{position:static}}
+
+
+/* ===== UEBER UNS – Einleitung ===== */
+.au-lead{max-width:860px;margin-bottom:.5rem}
+.au-lead p{font-size:.98rem;line-height:1.85;color:rgba(255,255,255,.82);margin-bottom:1.1rem}
+.au-lead p:last-child{margin-bottom:0}
+.au-lead strong{color:var(--W);font-weight:700}
+
+</style>
+</head>
+<body>
+
+<div id="cur"></div><div id="cur-r"></div>
+
+<div id="cookie-banner">
+  <div class="cookie-text">
+    <strong>Diese Website verwendet Cookies.</strong> Wir setzen technisch notwendige Cookies ein, um die einwandfreie Funktion der Website zu gewährleisten. Weitere Informationen finden Sie in unserer <a href="datenschutz.html">Datenschutzerklarung</a>.
+  </div>
+  <div class="cookie-btns">
+    <button class="cookie-accept" id="cookie-accept">Akzeptieren</button>
+    <button class="cookie-decline" id="cookie-decline">Ablehnen</button>
+  </div>
+</div>
+<div class="mmenu" id="mm">
+  <a href="index.html" onclick="cm()">Programm</a>
+  <a href="index.html#ueber-uns" onclick="cm()">Über uns</a>
+  <a href="index.html#pakete" onclick="cm()">Angebote</a>
+  <a href="index.html#kontakt" onclick="cm()">Kontakt</a>
+  <a href="partner.html" onclick="cm()">Partner</a>
+  <button class="ncta" onclick="cm();window.location.href='index.html#kontakt'">Anmelden</button>
+</div>
+<nav id="nav">
+  <a href="index.html" class="nlogo">
+    <img src="galatasaray-logo.png" alt="Galatasaray Fussballschule Mainz Wiesbaden"/>
+    <div class="nbrand">
+      <span class="nbrand-main">Galatasaray Fussballschule</span>
+      <span class="nbrand-sub">Mainz &amp; Wiesbaden · Offizielle Kooperation</span>
+    </div>
+  </a>
+  <div class="nlinks">
+    <a href="index.html" class="active">Programm</a>
+    <a href="index.html#ueber-uns">Über uns</a>
+    <a href="index.html#pakete">Angebote</a>
+    <a href="index.html#kontakt">Kontakt</a>
+    <a href="partner.html" class="spon-link">Partner</a>
+  </div>
+  <button class="hbtn" id="hbtn"><span></span><span></span><span></span></button>
+  <button class="ncta" onclick="window.location.href='index.html#kontakt'">Anmelden</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hbg">
+    <div class="hbg-grad"></div>
+    <div class="hbg-lines"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="hslash hs1"></div>
+    <div class="hslash hs2"></div>
+  </div>
+  <div class="hero-left">
+    <div class="h-super">Offizielle Kooperation mit Galatasaray Istanbul</div>
+    <h1>
+      <span class="r">Galata</span><span class="r">saray</span><br/>
+      <span class="y">Fussball</span>
+      <span class="outline">schule</span><br/>
+      Mainz &amp; Wiesbaden
+    </h1>
+    <div class="h-div"><div class="h-div-line"></div><div class="h-div-dot"></div><div class="h-div-line" style="background:linear-gradient(90deg,transparent,rgba(245,168,0,.25))"></div></div>
+    <p class="hero-desc">Die erste offizielle Galatasaray Fussballschule in der Rhein-Main-Region — UEFA-lizenzierte Trainer, die Chance auf ein Training bei Galatasaray Istanbul und der Geist Galatasarays direkt in Ihrer Stadt.</p>
+    <div class="h-chips">
+      <span class="h-chip">U5 bis U19</span>
+      <span class="h-chip">UEFA-lizenziert</span>
+      <span class="h-chip">Training in Istanbul</span>
+      <span class="h-chip">Mentales Coaching</span>
+      <span class="h-chip">1x Probetraining gratis</span>
+    </div>
+    <div class="h-cta">
+      <a href="#pakete" class="btn-r">Angebote entdecken</a>
+      <a href="#kontakt" class="btn-ghost">Probetraining sichern</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="logo-sphere">
+      <img src="galatasaray-logo.png" alt="Galatasaray Fussballschule"/>
+    </div>
+  </div>
+  <div class="h-scroll"><div class="h-scroll-ln"></div><span class="h-scroll-lbl">Scrollen</span></div>
+</section>
+
+<!-- UEBER UNS -->
+<div id="ueber-uns" class="sec">
+  <div class="wrap">
+    <div class="rv"><div class="eyebrow">Offiziell lizenziert &middot; Direkt aus Istanbul</div></div>
+    <h2 class="sec-h rv">Über <span class="r">uns</span></h2>
+    <hr class="sec-rule rv"/>
+
+    <div class="au-lead rv">
+      <p>Die <strong>Galatasaray Fußballschule Mainz &amp; Wiesbaden</strong> ist eine offiziell lizenzierte Fußballschule von Galatasaray Istanbul. Unser Ziel ist es, die Trainingsphilosophie, Werte und Leidenschaft von Galatasaray in die Rhein-Main-Region zu bringen.</p>
+      <p>Mit UEFA-lizenzierten Trainern, professionellen Trainingsstrukturen und der direkten Verbindung nach Istanbul möchten wir jedes Kind individuell fördern, Potenzial erkennen und die bestmöglichen Voraussetzungen schaffen, damit aus einem Traum ein echter Weg werden kann.</p>
+    </div>
+
+    <div class="fnd-banner rv">
+      <img src="D3ABBDD4-BDA3-429D-ABA5-D8CACC7E6AF5.PNG" alt="Mikail Ünal — Gründer der Galatasaray Fussballschule Mainz &amp; Wiesbaden"/>
+    </div>
+
+    <div class="fnd-body rv">
+      <div class="fnd-head">
+        <div>
+          <div class="fnd-eyebrow-badge">Ehemaliger Profispieler &middot; Türkei</div>
+          <h3 class="fnd-name">Mikail Ünal</h3>
+          <div class="fnd-role">Gründer &amp; Inhaber</div>
+        </div>
+        <div class="fnd-tags">
+          <span class="fnd-tag">Profikarriere in der Türkei</span>
+          <span class="fnd-tag">Direkter Draht nach Istanbul</span>
+          <span class="fnd-tag">Offizielle GS-Kooperation</span>
+        </div>
+      </div>
+      <div class="fnd-cols">
+        <p class="fnd-text">Gründer und Inhaber Mikail Ünal kennt den leistungsorientierten Fußball aus eigener Erfahrung. Aus seiner Profikarriere in der Türkei, seiner Zeit in Istanbul und der direkten Verbindung zu Galatasaray entstand die Vision, Kindern und Jugendlichen die Möglichkeiten, Strukturen und Perspektiven zu geben, die sie brauchen, um ihrem eigenen Fußballtraum näherzukommen.</p>
+        <p class="fnd-text">Dafür waren wir selbst bei Galatasaray in Istanbul, haben Einblicke in die Nachwuchsarbeit und Trainingsmethodik erhalten und uns mit den Verantwortlichen vor Ort ausgetauscht.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UEFA -->
+<div class="ustrip rv">
+  <span class="ustrip-ico" aria-hidden="true">&#10003;</span>
+  <p>Alle Trainingseinheiten werden von <strong>UEFA-lizenzierten Trainern</strong> durchgeführt — höchste Qualität und professionelle Methodik auf und neben dem Platz.</p>
+</div>
+
+<!-- PROGRAMM -->
+<div id="angebot" class="sec sec-alt">
+  <div class="wrap">
+    <div class="rv"><div class="eyebrow">Was wir bieten · U5 bis U19</div></div>
+    <h2 class="sec-h rv">Das <span class="r">Programm</span></h2>
+    <hr class="sec-rule rv"/>
+    <p class="sec-p rv" style="margin-bottom:2.5rem">Weit mehr als Training — ein ganzheitliches Entwicklungsprogramm nach den Standards von Galatasaray Istanbul.</p>
+    <div class="hl-box rv">
+      <h3>1x Probetraining — komplett kostenlos</h3>
+      <p>Komm einfach vorbei und zeig dich auf dem Platz: Beim Probetraining zahlst du <strong>nichts</strong> und brauchst <strong>kein Outfit</strong>. Wir schauen uns gemeinsam an, wo du stehst — und finden danach die passende Trainingsgruppe für dich.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card rv d1">
+        <div class="feat-mark"></div>
+        <div class="feat-title">Wochentliches Training</div>
+        <ul class="feat-list">
+          <li>Altersgerechtes Training für U5 bis U19 nach GS-Methodik</li>
+          <li>2x pro Woche für maximale Entwicklung</li>
+          <li>UEFA-lizenzierte Trainer an beiden Standorten</li>
+        </ul>
+      </div>
+      <div class="feat-card rv d2">
+        <div class="feat-mark"></div>
+        <div class="feat-title">Training in Istanbul</div>
+        <ul class="feat-list">
+          <li>Jährlich bekommen die besten Talente der Fußballschule die Chance auf ein Training direkt bei Galatasaray Istanbul</li>
+          <li>Auf dem offiziellen Galatasaray-Gelände in Istanbul</li>
+          <li>Direkter Draht zu Galatasaray-Scouts</li>
+        </ul>
+      </div>
+      <div class="feat-card rv d3">
+        <div class="feat-mark"></div>
+        <div class="feat-title">Mentales Coaching</div>
+        <ul class="feat-list">
+          <li>1:1-Gespräch monatlich mit lizenziertem Coach</li>
+          <li>Fokus, Selbstvertrauen und mentale Stärke</li>
+          <li>Weil Fussball im Kopf beginnt</li>
+        </ul>
+      </div>
+      <div class="feat-card rv d1">
+        <div class="feat-mark"></div>
+        <div class="feat-title">GS-Trainer aus Istanbul</div>
+        <ul class="feat-list">
+          <li>Mehrmals jährlich eingeflogene GS-Trainer</li>
+          <li>Methoden direkt aus dem Proficlub</li>
+          <li>Internationale Freundschaftsspiele</li>
+        </ul>
+      </div>
+      <div class="feat-card rv d2">
+        <div class="feat-mark"></div>
+        <div class="feat-title">Moderne Analyse</div>
+        <ul class="feat-list">
+          <li>Videoanalyse wie im Profibereich</li>
+          <li>Individuelle Entwicklungsplane</li>
+          <li>Ernahrungsberatung &amp; Athletiktraining</li>
+        </ul>
+      </div>
+      <div class="feat-card rv d3">
+        <div class="feat-mark"></div>
+        <div class="feat-title">Community &amp; Familie</div>
+        <ul class="feat-list">
+          <li>Eltern-Academy &amp; Workshops</li>
+          <li>Fussballfeste und Community-Events</li>
+          <li>Offizieller Galatasaray-Spielerausweis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAKETE -->
+<div id="pakete" class="sec">
+  <div class="wrap">
+    <div class="rv"><div class="eyebrow">Dein Weg zu uns</div></div>
+    <h2 class="sec-h rv">Erst kennenlernen, <span class="y">dann durchstarten</span></h2>
+    <hr class="sec-rule rv"/>
+    <p class="sec-p rv" style="margin-bottom:2.4rem">Bei uns steht am Anfang kein Preisschild, sondern der Ball. Jedes Kind startet mit einem kostenlosen Probetraining — wir schauen uns gemeinsam an, wo es steht, und finden anschließend die Trainingsgruppe, die wirklich passt.</p>
+
+    <div class="probe-callout rv">
+      <div class="probe-callout-badge">Kostenlos &amp; unverbindlich</div>
+      <div class="probe-callout-grid">
+        <div>
+          <h3 class="probe-callout-h">Dein kostenloses <span class="r">Probetraining</span></h3>
+          <p class="probe-callout-p">Komm einfach vorbei und zeig dich auf dem Platz — ganz ohne Druck. Beim ersten Training <strong>zahlst du nichts</strong> und brauchst <strong>kein Outfit</strong>. Unsere UEFA-lizenzierten Trainer schauen sich jedes Kind in Ruhe an. Danach entscheiden wir gemeinsam mit dir und deinen Eltern, welche Gruppe am besten zu Alter und Können passt.</p>
+          <div class="probe-points">
+            <span class="probe-point"><i>&#10003;</i> Kostenlos &amp; unverbindlich</span>
+            <span class="probe-point"><i>&#10003;</i> Keine Zahlung beim ersten Training</span>
+            <span class="probe-point"><i>&#10003;</i> Kein Outfit nötig — komm einfach, wie du bist</span>
+            <span class="probe-point"><i>&#10003;</i> Passende Gruppe wählen wir gemeinsam</span>
+          </div>
+        </div>
+        <div class="probe-cta-col">
+          <div class="probe-cta-title">Bereit,<br/>dich zu zeigen?</div>
+          <a href="#kontakt" class="probe-cta-btn" onclick="scrollToForm('Kostenloses Probetraining')">Probetraining sichern &rarr;</a>
+          <a href="https://wa.me/49155657850711" target="_blank" rel="noopener" class="probe-cta-wa">oder direkt über WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="rv" style="margin-top:4rem"><div class="eyebrow">Unsere Trainingsangebote</div></div>
+    <h3 class="sec-h rv" style="font-size:clamp(1.7rem,3.5vw,2.6rem)">Für jedes Alter <span class="y">das Richtige</span></h3>
+    <hr class="sec-rule rv"/>
+    <p class="sec-p rv" style="margin-bottom:2.4rem">Vom spielerischen Einstieg bis zur ambitionierten Ausbildung — die konkrete Gruppe legen wir nach dem Probetraining gemeinsam fest.</p>
+
+    <div class="offer-grid rv">
+      <div class="offer-card d1">
+        <div class="offer-tag">5–8 Jahre</div>
+        <h4 class="offer-name">Ballschule</h4>
+        <p class="offer-desc">Spielerischer Einstieg ganz ohne Leistungsdruck — Koordination, Motorik und jede Menge Spaß am Ball.</p>
+        <ul class="offer-list">
+          <li>Altersgerechtes Training in Kleingruppen</li>
+          <li>Koordination, Motorik &amp; Ballgefühl</li>
+          <li>UEFA-lizenzierte Trainer</li>
+        </ul>
+        <button class="offer-btn" onclick="scrollToForm('Ballschule 5-8 Jahre – Probetraining')">Probetraining anfragen &rarr;</button>
+      </div>
+
+      <div class="offer-card offer-best d2">
+        <div class="offer-flag">Beliebt</div>
+        <div class="offer-tag">9–17 Jahre</div>
+        <h4 class="offer-name">Fußball&shy;akademie</h4>
+        <p class="offer-desc">Ambitionierte Ausbildung in altersgerechten Gruppen — aufgeteilt nach Alter und Leistungsstand.</p>
+        <ul class="offer-list">
+          <li>Technik, Athletik &amp; Spielverständnis</li>
+          <li>Monatliches Mentaltraining inklusive</li>
+          <li>Chance auf ein Training bei Galatasaray Istanbul</li>
+        </ul>
+        <button class="offer-btn" onclick="scrollToForm('Fußballakademie 9-17 Jahre – Probetraining')">Probetraining anfragen &rarr;</button>
+      </div>
+
+      <div class="offer-card d3">
+        <div class="offer-tag">Teams &amp; Vereine</div>
+        <h4 class="offer-name">Mannschafts&shy;training</h4>
+        <p class="offer-desc">Professionelles Training für ganze Teams nach Galatasaray-Methodik — bei euch oder bei uns. Ideal als Ergänzung für Vereinsmannschaften.</p>
+        <ul class="offer-list">
+          <li>Training für komplette Mannschaften</li>
+          <li>Individuell auf euer Team abgestimmt</li>
+          <li>Auch ergänzend zum Vereinstraining</li>
+        </ul>
+        <button class="offer-btn" onclick="scrollToForm('Mannschaftstraining – Anfrage')">Anfrage senden &rarr;</button>
+      </div>
+
+      <div class="offer-card d1">
+        <div class="offer-tag">1:1 · Alle Altersstufen</div>
+        <h4 class="offer-name">Einzel&shy;training</h4>
+        <p class="offer-desc">Ganz gezielte Förderung im Einzeltraining — Zeiten und Umfang stimmen wir persönlich mit euch ab.</p>
+        <ul class="offer-list">
+          <li>Individuelles 1:1-Training mit dem Trainer</li>
+          <li>Flexible Termine nach Absprache</li>
+          <li>Gezielte Arbeit an Technik &amp; Schwächen</li>
+        </ul>
+        <button class="offer-btn" onclick="scrollToForm('Einzeltraining 1:1 – Anfrage')">Anfrage senden &rarr;</button>
+      </div>
+    </div>
+
+    <div class="promo-banner rv">
+      <div class="promo-banner-pulse" aria-hidden="true"></div>
+      <div class="promo-banner-main">
+        <div class="promo-banner-tag">Limitierte Aktion · Nur 40 Plätze</div>
+        <div class="promo-banner-h">Die ersten 40 Anmeldungen: <span class="y">Ausstattung gratis</span></div>
+        <p class="promo-banner-p">Wer sich nach dem Probetraining für eine reguläre Trainingsgruppe entscheidet, bekommt das komplette Original-Outfit direkt von Galatasaray (Trikot, Shorts, Stutzen) <strong>kostenlos</strong> — danach 50&nbsp;€. Das sind <strong>50&nbsp;€ Vorteil</strong>, solange die 40 Plätze reichen.</p>
+      </div>
+      <a href="#kontakt" class="promo-banner-cta" onclick="scrollToForm('Limitierte Aktion – Ausstattung gratis')">Platz sichern &rarr;</a>
+    </div>
+
+    <div style="margin-top:4.5rem" id="camps">
+      <div class="rv"><div class="eyebrow">4x im Jahr · Je 3 Tage</div></div>
+      <h2 class="sec-h rv">Feriencamps <span class="y">2026</span></h2>
+      <hr class="sec-rule rv"/>
+      <div class="camps-header rv">
+        <img class="camps-logo" src="galatasaray-logo.png" alt="GS Logo"/>
+        <p class="sec-p">Mehrtägige Intensivcamps in den Schulferien — mit professioneller Betreuung und echtem Galatasaray-Erlebnis für die ganze Familie.</p>
+      </div>
+      <div class="camps-grid rv">
+        <div class="ccard d1">
+          <div class="ccard-head"><h3>Externe Teilnehmer</h3></div>
+          <div class="ccard-body">
+            <div class="ccard-price ccard-price-txt">Preis auf Anfrage</div>
+            <div class="ccard-sub">Original-Outfit von Galatasaray inklusive</div>
+            <ul class="ccard-list">
+              <li>3 Tage Intensivtraining</li>
+              <li>2x tagliche Trainingseinheiten</li>
+              <li>Mittagessen, Getranke &amp; Obst</li>
+              <li>Original-Outfit direkt von Galatasaray</li>
+              <li>UEFA-lizenzierte Trainer</li>
+            </ul>
+          </div>
+          <div class="ccard-cta"><button class="ccard-btn" onclick="scrollToForm('Camp Extern')">Jetzt anmelden <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button></div>
+        </div>
+        <div class="ccard mem d2">
+          <div class="ccard-head"><h3>Mitglieder</h3><span class="ccard-badge">Mitglieder-Vorteil</span></div>
+          <div class="ccard-body">
+            <div class="ccard-price ccard-price-txt">Vergünstigt</div>
+            <div class="ccard-sub">Vergünstigte Teilnahme für Mitglieder</div>
+            <ul class="ccard-list">
+              <li>3 Tage Intensivtraining</li>
+              <li>2x tagliche Trainingseinheiten</li>
+              <li>Mittagessen, Getranke &amp; Obst</li>
+              <li>Outfit bereits vorhanden</li>
+              <li>UEFA-lizenzierte Trainer</li>
+            </ul>
+          </div>
+          <div class="ccard-cta"><button class="ccard-btn" onclick="scrollToForm('Camp Mitglied')">Jetzt anmelden <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spon-teaser rv">
+
+      <div class="st-eyebrow">Partner werden</div>
+
+      <div class="spon-teaser-grid">
+        <div>
+          <h3>Gemeinsam <span class="r">mehr</span> <span class="y">bewegen</span></h3>
+          <p>Unsere Fussballschule wächst — und mit ihr die Möglichkeiten für starke regionale Partnerschaften. Als Partner erreichen Sie Familien und eine engagierte Community in der gesamten Rhein-Main-Region und fördern gleichzeitig die Jugend vor Ort.</p>
+        </div>
+        <div class="st-cta-wrap">
+          <div class="st-cta-tag">Partnerschaften</div>
+          <div class="st-cta-title">Werden Sie<br/>Teil des Projekts</div>
+          <div class="st-cta-desc">Unsere Partnerfamilie wächst mit Bedacht. Wenn auch Ihr Unternehmen die Jugend der Region langfristig fördern möchte, freuen wir uns auf ein persönliches Gespräch.</div>
+          <a href="partner.html" class="st-cta-btn">Partner werden →</a>
+          <div class="st-cta-note">Persönlich &nbsp;&middot;&nbsp; Unverbindlich</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KONTAKT -->
+<div id="kontakt" class="sec sec-alt">
+  <div class="wrap">
+    <div class="rv"><div class="eyebrow">Anmeldung &amp; Kontakt</div></div>
+    <h2 class="sec-h rv">Jetzt <span class="r">anmelden</span></h2>
+    <hr class="sec-rule rv"/>
+    <p class="sec-p rv" style="margin-bottom:1.4rem">Probetraining kostenlos — schreib uns direkt oder füll das Formular aus. Wir melden uns innerhalb von 24 Stunden.</p>
+    <div class="quick-contact rv">
+      <a href="https://wa.me/49155657850711" target="_blank" rel="noopener" class="social-btn social-wa"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.29-.15-1.7-.84-1.96-.94-.26-.1-.45-.15-.64.15-.19.29-.74.94-.9 1.13-.17.19-.33.22-.62.07-.29-.15-1.22-.45-2.32-1.44-.86-.76-1.44-1.7-1.6-1.99-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.14-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.48l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .98-1 2.38 0 1.4 1.02 2.76 1.17 2.95.14.19 2.01 3.07 4.86 4.3.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34z"/><path d="M12.05 2C6.6 2 2.18 6.42 2.18 11.87c0 1.75.46 3.46 1.33 4.97L2 22l5.3-1.39c1.46.8 3.1 1.22 4.75 1.22h.01c5.44 0 9.86-4.42 9.87-9.87 0-2.64-1.03-5.11-2.9-6.98A9.8 9.8 0 0012.05 2zm5.77 15.63c-.25.7-1.44 1.34-1.99 1.42-.53.08-1.17.11-1.89-.12-.44-.14-1-.32-1.71-.63-3.01-1.3-4.98-4.33-5.13-4.53-.15-.2-1.23-1.63-1.23-3.11 0-1.48.78-2.21 1.05-2.51.28-.3.6-.38.8-.38.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.85 2.07.92 2.22.07.15.12.32.02.51-.09.19-.14.31-.28.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.75 1.23 1.61 1.99 1.1.99 2.04 1.29 2.33 1.44.29.15.46.12.62-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.15.26.1 1.67.79 1.96.94.29.15.48.22.55.34.07.12.07.69-.18 1.39z"/></svg> WhatsApp Business</a>
+      <a href="https://instagram.com/galatasaray.fussballschule" target="_blank" rel="noopener" class="social-btn social-ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.3" fill="currentColor" stroke="none"/></svg> Instagram</a>
+      <a href="https://www.tiktok.com/@galatasaray.fussballschule" target="_blank" rel="noopener" class="social-btn social-tt"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82a4.28 4.28 0 01-1.06-2.82h-3.3v12.63a2.53 2.53 0 01-2.53 2.53 2.53 2.53 0 01-2.53-2.53 2.53 2.53 0 012.53-2.53c.27 0 .52.04.76.12V9.86a5.9 5.9 0 00-.76-.05A5.89 5.89 0 003.33 15.7a5.89 5.89 0 005.88 5.88 5.89 5.89 0 005.88-5.88V9.4a7.56 7.56 0 004.42 1.42V7.5a4.28 4.28 0 01-2.83-1.68z"/></svg> TikTok</a>
+    </div>
+    <p class="rv" style="color:rgba(255,255,255,.5);font-size:.82rem;margin:0 0 2.2rem">Am schnellsten erreichst du uns über WhatsApp Business. Auf Instagram &amp; TikTok (@galatasaray.fussballschule) gibt&rsquo;s Einblicke, Termine &amp; Highlights.</p>
+    <div class="train-loc rv">
+      <div class="tl-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></div>
+      <div class="tl-body">
+        <div class="tl-tag">Unser Trainingsort</div>
+        <div class="tl-name">Kunstrasenplatz KR2 Bischofsheim (Stadt)</div>
+        <div class="tl-addr">Ginsheimer Landstr. 17d · 65474 Bischofsheim</div>
+      </div>
+      <a class="tl-btn" href="https://www.google.de/maps?q=Ginsheimer+Landstr.+17d%2C+65474+Bischofsheim" target="_blank" rel="noopener">Route planen →</a>
+    </div>
+    <div style="max-width:780px" class="rv">
+      <div class="cf-box" id="cf-box">
+        <div id="cf-form">
+          <div class="cf-grid">
+            <div class="cf-group">
+              <label class="cf-label">Vorname *</label>
+              <input class="cf-input" type="text" id="cf-vn" placeholder="Vorname" required/>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label">Nachname *</label>
+              <input class="cf-input" type="text" id="cf-nn" placeholder="Nachname" required/>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label">Telefonnummer</label>
+              <input class="cf-input" type="tel" id="cf-tel" placeholder="0173 ..."/>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label">E-Mail *</label>
+              <input class="cf-input" type="email" id="cf-email" placeholder="mail@beispiel.de" required/>
+            </div>
+            <div class="cf-group cf-full">
+              <label class="cf-label">Geburtstag</label>
+              <div class="cf-bday">
+                <input class="cf-input" type="number" id="cf-tag" placeholder="Tag" min="1" max="31"/>
+                <input class="cf-input" type="number" id="cf-monat" placeholder="Monat" min="1" max="12"/>
+                <input class="cf-input" type="number" id="cf-jahr" placeholder="Jahr" min="2005" max="2025"/>
+              </div>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label">Verein</label>
+              <input class="cf-input" type="text" id="cf-verein" placeholder="Dein Verein"/>
+            </div>
+            <div class="cf-group">
+              <label class="cf-label">Position</label>
+              <select class="cf-select" id="cf-pos">
+                <option value="">Bitte wählen</option>
+                <option>Tor</option>
+                <option>Abwehr</option>
+                <option>Mittelfeld</option>
+                <option>Sturm</option>
+                <option>Noch nicht festgelegt</option>
+              </select>
+            </div>
+            <div class="cf-group cf-full">
+              <label class="cf-label">Interesse</label>
+              <select class="cf-select" id="cf-paket">
+                <option value="">Bitte wählen...</option>
+                <option>Kostenloses Probetraining</option>
+                <option>Ballschule (5–8 Jahre)</option>
+                <option>Fußballakademie (9–17 Jahre)</option>
+                <option>Mannschaftstraining (Teams &amp; Vereine)</option>
+                <option>Einzeltraining (1:1)</option>
+                <option>Feriencamp</option>
+              </select>
+            </div>
+            <div class="cf-group cf-full">
+              <label class="cf-label">Nachricht</label>
+              <textarea class="cf-textarea" id="cf-msg" placeholder="Deine Nachricht..."></textarea>
+            </div>
+          </div>
+          <button class="cf-submit" onclick="submitForm()">Nachricht senden</button>
+        </div>
+        <div class="cf-success" id="cf-success">
+          <div class="cf-success-ico" aria-hidden="true">&#10003;</div>
+          <div class="cf-success-title">Nachricht erhalten!</div>
+          <p class="cf-success-sub">Vielen Dank! Wir melden uns innerhalb von 24 Stunden per E-Mail oder Telefon. Willkommen bei der Galatasaray Fussballschule!</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:3.5rem">
+      <div class="rv"><div class="eyebrow">Vertragliches</div></div>
+      <h3 class="rv" style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.8rem;text-transform:uppercase;letter-spacing:.03em;color:var(--W);margin-bottom:1rem">Wichtige <span class="r">Hinweise</span></h3>
+      <div class="hints-box rv">
+        <div class="hints-hdr">Gut zu wissen</div>
+        <div class="hints-row">Das erste Probetraining ist <strong>kostenlos und unverbindlich</strong> — beim ersten Training musst du nichts bezahlen und brauchst kein Outfit.</div>
+        <div class="hints-row">Nach dem Probetraining legen wir gemeinsam die passende Trainingsgruppe fest — grundsätzlich ist bei uns jedes Kind willkommen.</div>
+        <div class="hints-row">Das Original-Outfit direkt von Galatasaray wird erst mit der regulären Anmeldung benötigt. Die ersten 40 Anmeldungen erhalten es gratis, danach für 50 €.</div>
+        <div class="hints-row">Alle Beiträge, Laufzeiten und Konditionen besprechen wir transparent und persönlich — ganz ohne Kleingedrucktes vorab.</div>
+        <div class="hints-row">Familienrabatt ab dem 2. angemeldeten Kind. Details gern im persönlichen Gespräch.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script>
+
+// CURSOR
+var C=document.getElementById('cur'),CR=document.getElementById('cur-r');
+if(C && window.matchMedia('(hover:hover)').matches){
+  var mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;C.style.left=mx+'px';C.style.top=my+'px';},{passive:true});
+  (function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;CR.style.left=rx+'px';CR.style.top=ry+'px';requestAnimationFrame(loop)})();
+  document.querySelectorAll('a,button,.pkg,.ccard,.feat-card,.l-card,.grnd-card,.zg-num-card,.benefit-card').forEach(function(el){
+    el.addEventListener('mouseenter',function(){document.body.classList.add('hov');});
+    el.addEventListener('mouseleave',function(){document.body.classList.remove('hov');});
+  });
+}
+// NAV
+var nav=document.getElementById('nav');
+if(nav)window.addEventListener('scroll',function(){nav.classList.toggle('stuck',scrollY>55);},{passive:true});
+// HAMBURGER
+var hbtn=document.getElementById('hbtn'),mm=document.getElementById('mm');
+if(hbtn)hbtn.addEventListener('click',function(){hbtn.classList.toggle('open');mm.classList.toggle('open');document.body.style.overflow=mm.classList.contains('open')?'hidden':'';});
+function cm(){if(hbtn)hbtn.classList.remove('open');if(mm)mm.classList.remove('open');document.body.style.overflow='';}
+// SCROLL REVEAL
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');obs.unobserve(e.target);}});},{threshold:.06,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv,.rvl,.rvr').forEach(function(el){obs.observe(el);});
+// 3D TILT
+if(window.matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('.pkg,.ccard,.feat-card,.l-card,.grnd-card').forEach(function(card){
+    card.addEventListener('mousemove',function(e){var r=card.getBoundingClientRect();var x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.transform='translateY(-5px) rotateX('+(-y*4)+'deg) rotateY('+(x*4)+'deg)';card.style.transition='transform .05s';},{passive:true});
+    card.addEventListener('mouseleave',function(){card.style.transform='';card.style.transition='transform .4s cubic-bezier(.16,1,.3,1)';});
+  });
+}
+
+
+// COOKIE BANNER
+(function(){
+  if(!localStorage.getItem('gs_cookie_consent')){
+    var b=document.getElementById('cookie-banner');
+    if(b){setTimeout(function(){b.classList.add('visible')},800);}
+  }
+  var a=document.getElementById('cookie-accept');
+  var d=document.getElementById('cookie-decline');
+  function hide(){
+    var b=document.getElementById('cookie-banner');
+    if(b){b.classList.remove('visible');setTimeout(function(){b.style.display='none'},600);}
+  }
+  if(a)a.addEventListener('click',function(){localStorage.setItem('gs_cookie_consent','accepted');hide();});
+  if(d)d.addEventListener('click',function(){localStorage.setItem('gs_cookie_consent','declined');hide();});
+})();
+
+function scrollToForm(paket) {
+  document.getElementById('kontakt').scrollIntoView({behavior:'smooth'});
+  if(paket) {
+    setTimeout(function() {
+      var sel = document.getElementById('cf-paket');
+      for(var i=0;i<sel.options.length;i++) {
+        if(sel.options[i].text.indexOf(paket) !== -1) { sel.selectedIndex=i; break; }
+      }
+    }, 700);
+  }
+}
+function submitForm() {
+  var vn=document.getElementById('cf-vn'), em=document.getElementById('cf-email');
+  var ok=true;
+  [vn,em].forEach(function(el) {
+    if(!el.value.trim()) { el.style.borderColor='var(--R)'; ok=false; }
+    else el.style.borderColor='';
+  });
+  if(!ok) return;
+  document.getElementById('cf-form').style.display='none';
+  document.getElementById('cf-success').classList.add('show');
+}
+</script>
+
+
+
+
+
+<!-- =====================================================
+     KONTAKT & UBER UNS
+===================================================== -->
+<section class="über-uns">
+  <div class="wrap">
+
+    <!-- HERO STRIP -->
+    <div class="uu-hero">
+      <div class="uu-hero-inner">
+        <div class="uu-hero-left">
+          <img class="uu-hero-logo" src="galatasaray-logo.png" alt="Galatasaray Fussballschule Mainz Wiesbaden"/>
+          <div class="uu-hero-text">
+            <div class="uu-hero-name">Galatasaray Fussballschule</div>
+            <div class="uu-hero-sub">Mainz &amp; Wiesbaden &mdash; Offiziell lizenzierter Partner</div>
+          </div>
+        </div>
+        <div class="uu-hero-right">
+          <a href="index.html#kontakt" class="uu-hero-cta">Jetzt anmelden</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN FOUR-COLUMN GRID -->
+    <div class="uu-main">
+
+      <!-- COL 1: UBER UNS -->
+      <div class="uu-col">
+        <div class="uu-col-head">Uber uns</div>
+        <div class="uu-about-tagline">Sport, Familie, Leidenschaft und Zusammenhalt</div>
+        <p class="uu-about-text">Wir sind die erste offizielle Galatasaray Fussballschule in der Rhein-Main-Region &mdash; als lizenzierter Partner von Galatasaray Istanbul. Mit über 70 aktiven Kindern und Jugendlichen, einem UEFA-lizenzierten Trainerteam und tiefen Wurzeln in der regionalen Community haben wir die Grundlage für ein nachhaltiges, professionell geführtes Projekt geschaffen.</p>
+        <p class="uu-about-text">Galatasaray ist mehr als ein Fussballverein &mdash; es ist eine weltweite Identität, eine gelebte Leidenschaft und eine der stärksten Communities im europäischen Fussball. Genau diese Energie bringen wir in die Region Mainz und Wiesbaden.</p>
+        <div class="uu-about-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Trainingsalter U5 bis U19</span></div>
+        <div class="uu-about-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg><span>Probetraining kostenlos</span></div>
+        <div class="uu-about-fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg><span>Internationale Turniere &amp; Istanbul-Reisen</span></div>
+      </div>
+
+      <!-- COL 2: KONTAKT -->
+      <div class="uu-col">
+        <div class="uu-col-head">Kontakt</div>
+        <div class="uu-ci">
+          <div class="uu-ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div>
+            <span class="uu-ci-label">Ansprechpartner</span>
+            <div class="uu-ci-val">Mikail Ünal<br/><em style="font-size:.72rem;color:rgba(245,168,0,.7);font-style:italic;letter-spacing:.04em">Jederzeit erreichbar</em></div>
+          </div>
+        </div>
+        <div class="uu-ci">
+          <div class="uu-ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.39 9.13a19.79 19.79 0 01-3.07-8.67A2 2 0 012.31 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+          <div>
+            <span class="uu-ci-label">Telefon</span>
+            <div class="uu-ci-val">
+              Mikail Ünal &mdash; <a href="tel:0155657850711">0155 657850711</a>
+            </div>
+          </div>
+        </div>
+        <div class="uu-ci">
+          <div class="uu-ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div>
+            <span class="uu-ci-label">E-Mail</span>
+            <div class="uu-ci-val"><a href="mailto:info@gs-fussballschule.de">info@gs-fussballschule.de</a></div>
+          </div>
+        </div>
+        <div class="uu-ci">
+          <div class="uu-ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+          <div>
+            <span class="uu-ci-label">Website</span>
+            <div class="uu-ci-val"><a href="https://www.gs-fussballschule.de" target="_blank">gs-fussballschule.de</a></div>
+          </div>
+        </div>
+        <div class="uu-ci">
+          <div class="uu-ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div>
+            <span class="uu-ci-label">Standorte</span>
+            <div class="uu-ci-val">Mainz &amp; Wiesbaden<br/>Rhein-Main-Region, Deutschland</div>
+          </div>
+        </div>
+        <div class="uu-ci">
+          <div class="uu-ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+          <div>
+            <span class="uu-ci-label">Social Media</span>
+            <div class="uu-social">
+              <a href="https://wa.me/49155657850711" target="_blank" rel="noopener" class="uu-social-btn uu-wa" aria-label="WhatsApp Business"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.29-.15-1.7-.84-1.96-.94-.26-.1-.45-.15-.64.15-.19.29-.74.94-.9 1.13-.17.19-.33.22-.62.07-.29-.15-1.22-.45-2.32-1.44-.86-.76-1.44-1.7-1.6-1.99-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.14-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.48l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .98-1 2.38 0 1.4 1.02 2.76 1.17 2.95.14.19 2.01 3.07 4.86 4.3.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34z"/><path d="M12.05 2C6.6 2 2.18 6.42 2.18 11.87c0 1.75.46 3.46 1.33 4.97L2 22l5.3-1.39c1.46.8 3.1 1.22 4.75 1.22h.01c5.44 0 9.86-4.42 9.87-9.87 0-2.64-1.03-5.11-2.9-6.98A9.8 9.8 0 0012.05 2zm5.77 15.63c-.25.7-1.44 1.34-1.99 1.42-.53.08-1.17.11-1.89-.12-.44-.14-1-.32-1.71-.63-3.01-1.3-4.98-4.33-5.13-4.53-.15-.2-1.23-1.63-1.23-3.11 0-1.48.78-2.21 1.05-2.51.28-.3.6-.38.8-.38.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.85 2.07.92 2.22.07.15.12.32.02.51-.09.19-.14.31-.28.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.75 1.23 1.61 1.99 1.1.99 2.04 1.29 2.33 1.44.29.15.46.12.62-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.64-.15.26.1 1.67.79 1.96.94.29.15.48.22.55.34.07.12.07.69-.18 1.39z"/></svg></a>
+              <a href="https://instagram.com/galatasaray.fussballschule" target="_blank" rel="noopener" class="uu-social-btn uu-ig" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.3" fill="currentColor" stroke="none"/></svg></a>
+              <a href="https://www.tiktok.com/@galatasaray.fussballschule" target="_blank" rel="noopener" class="uu-social-btn uu-tt" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.82a4.28 4.28 0 01-1.06-2.82h-3.3v12.63a2.53 2.53 0 01-2.53 2.53 2.53 2.53 0 01-2.53-2.53 2.53 2.53 0 012.53-2.53c.27 0 .52.04.76.12V9.86a5.9 5.9 0 00-.76-.05A5.89 5.89 0 003.33 15.7a5.89 5.89 0 005.88 5.88 5.89 5.89 0 005.88-5.88V9.4a7.56 7.56 0 004.42 1.42V7.5a4.28 4.28 0 01-2.83-1.68z"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COL 3: PROGRAMM -->
+      <div class="uu-col">
+        <div class="uu-col-head">Unser Programm</div>
+        <div class="uu-prog-item">
+          <div class="uu-prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div>
+            <span class="uu-prog-title">Wochentliches Training</span>
+            <span class="uu-prog-desc">Altersgerechtes Training von U5 bis U19 nach GS-Methodik, 2x pro Woche</span>
+          </div>
+        </div>
+        <div class="uu-prog-item">
+          <div class="uu-prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg></div>
+          <div>
+            <span class="uu-prog-title">Training in Istanbul</span>
+            <span class="uu-prog-desc">Die besten Talente bekommen jährlich die Chance auf ein Training direkt bei Galatasaray Istanbul</span>
+          </div>
+        </div>
+        <div class="uu-prog-item">
+          <div class="uu-prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <div>
+            <span class="uu-prog-title">Mentales Coaching</span>
+            <span class="uu-prog-desc">Monatliches 1:1-Gespräch mit lizenziertem Coach inklusive</span>
+          </div>
+        </div>
+        <div class="uu-prog-item">
+          <div class="uu-prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+          <div>
+            <span class="uu-prog-title">GS-Trainer aus Istanbul</span>
+            <span class="uu-prog-desc">Mehrmals jährlich eingeflogene Trainer direkt aus dem Proficlub</span>
+          </div>
+        </div>
+        <div class="uu-prog-item">
+          <div class="uu-prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div>
+            <span class="uu-prog-title">Feriencamps &amp; Turniere</span>
+            <span class="uu-prog-desc">4x jährlich 3-tägige Intensivcamps in den Schulferien &mdash; inkl. Betreuung &amp; Outfit</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- COL 4: NAVIGATION -->
+      <div class="uu-col">
+        <div class="uu-col-head">Navigation</div>
+        <a href="index.html" class="uu-link-row">
+          <span class="uu-link-row-arrow"></span>
+          <span class="uu-link-row-text">Hauptseite</span>
+        </a>
+        <a href="index.html#ueber-uns" class="uu-link-row">
+          <span class="uu-link-row-arrow"></span>
+          <span class="uu-link-row-text">Über uns</span>
+        </a>
+        <a href="index.html#angebot" class="uu-link-row">
+          <span class="uu-link-row-arrow"></span>
+          <span class="uu-link-row-text">Unser Programm</span>
+        </a>
+        <a href="index.html#pakete" class="uu-link-row">
+          <span class="uu-link-row-arrow"></span>
+          <span class="uu-link-row-text">Trainingsangebote</span>
+        </a>
+        <a href="index.html#camps" class="uu-link-row">
+          <span class="uu-link-row-arrow"></span>
+          <span class="uu-link-row-text">Feriencamps</span>
+        </a>
+        <a href="index.html#kontakt" class="uu-link-row">
+          <span class="uu-link-row-arrow"></span>
+          <span class="uu-link-row-text">Anmelden</span>
+        </a>
+        <a href="partner.html" class="uu-link-row">
+          <span class="uu-link-row-arrow"></span>
+          <span class="uu-link-row-text">Partner</span>
+          <span class="uu-link-ext">Unsere Partner</span>
+        </a>
+        <a href="impressum.html" class="uu-link-row">
+          <span class="uu-link-row-arrow"></span>
+          <span class="uu-link-row-text">Impressum</span>
+        </a>
+        <a href="datenschutz.html" class="uu-link-row">
+          <span class="uu-link-row-arrow"></span>
+          <span class="uu-link-row-text">Datenschutz</span>
+        </a>
+        <a href="https://www.gs-fussballschule.de" target="_blank" class="uu-link-row">
+          <span class="uu-link-row-arrow"></span>
+          <span class="uu-link-row-text">Offizielle Website</span>
+          <span class="uu-link-ext">Extern</span>
+        </a>
+      </div>
+
+    </div><!-- end uu-main -->
+
+    <!-- BOTTOM BAR -->
+    <div class="uu-bottom">
+      <div class="uu-copy">&copy; 2026 Galatasaray Fussballschule Mainz &amp; Wiesbaden &mdash; Alle Rechte vorbehalten</div>
+      <div class="uu-bottom-links">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="mailto:info@gs-fussballschule.de">Kontakt</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+</body>
+</html>
