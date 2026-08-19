@@ -1017,35 +1017,35 @@ img,svg,video{max-width:100%;height:auto}
           <div class="cf-grid">
             <div class="cf-group">
               <label class="cf-label">Vorname *</label>
-              <input class="cf-input" type="text" id="cf-vn" placeholder="Vorname" required/>
+              <input class="cf-input" type="text" id="cf-vn" name="Vorname" placeholder="Vorname" required/>
             </div>
             <div class="cf-group">
               <label class="cf-label">Nachname *</label>
-              <input class="cf-input" type="text" id="cf-nn" placeholder="Nachname" required/>
+              <input class="cf-input" type="text" id="cf-nn" name="Nachname" placeholder="Nachname" required/>
             </div>
             <div class="cf-group">
               <label class="cf-label">Telefonnummer</label>
-              <input class="cf-input" type="tel" id="cf-tel" placeholder="0173 ..."/>
+            <input class="cf-input" type="tel" id="cf-tel" name="Telefonnummer" placeholder="0173 ..."/>
             </div>
             <div class="cf-group">
               <label class="cf-label">E-Mail *</label>
-              <input class="cf-input" type="email" id="cf-email" placeholder="mail@beispiel.de" required/>
+              <input class="cf-input" type="email" id="cf-email" name="E-Mail" placeholder="mail@beispiel.de" required/>
             </div>
             <div class="cf-group cf-full">
               <label class="cf-label">Geburtstag</label>
               <div class="cf-bday">
-                <input class="cf-input" type="number" id="cf-tag" placeholder="Tag" min="1" max="31"/>
-                <input class="cf-input" type="number" id="cf-monat" placeholder="Monat" min="1" max="12"/>
-                <input class="cf-input" type="number" id="cf-jahr" placeholder="Jahr" min="2005" max="2025"/>
+             <input class="cf-input" type="number" id="cf-tag" name="Geburtstag-Tag" placeholder="Tag" min="1" max="31"/>
+<input class="cf-input" type="number" id="cf-monat" name="Geburtstag-Monat" placeholder="Monat" min="1" max="12"/>
+<input class="cf-input" type="number" id="cf-jahr" name="Geburtstag-Jahr" placeholder="Jahr" min="2005" max="2025"/>
               </div>
             </div>
             <div class="cf-group">
               <label class="cf-label">Verein</label>
-              <input class="cf-input" type="text" id="cf-verein" placeholder="Dein Verein"/>
+              <input class="cf-input" type="text" id="cf-verein" name="Verein" placeholder="Dein Verein"/>
             </div>
             <div class="cf-group">
               <label class="cf-label">Position</label>
-              <select class="cf-select" id="cf-pos">
+              <select class="cf-select" id="cf-pos" name="Position">
                 <option value="">Bitte wählen</option>
                 <option>Tor</option>
                 <option>Abwehr</option>
@@ -1056,7 +1056,7 @@ img,svg,video{max-width:100%;height:auto}
             </div>
             <div class="cf-group cf-full">
               <label class="cf-label">Interesse</label>
-              <select class="cf-select" id="cf-paket">
+              <select class="cf-select" id="cf-paket" name="Interesse">
                 <option value="">Bitte wählen...</option>
                 <option>Kostenloses Probetraining</option>
                 <option>Ballschule (5–8 Jahre)</option>
@@ -1068,7 +1068,7 @@ img,svg,video{max-width:100%;height:auto}
             </div>
             <div class="cf-group cf-full">
               <label class="cf-label">Nachricht</label>
-              <textarea class="cf-textarea" id="cf-msg" placeholder="Deine Nachricht..."></textarea>
+            <textarea class="cf-textarea" id="cf-msg" name="Nachricht" placeholder="Deine Nachricht..."></textarea>
             </div>
           </div>
           <button class="cf-submit" onclick="submitForm()">Nachricht senden</button>
@@ -1158,16 +1158,59 @@ function scrollToForm(paket) {
     }, 700);
   }
 }
-function submitForm() {
-  var vn=document.getElementById('cf-vn'), em=document.getElementById('cf-email');
-  var ok=true;
-  [vn,em].forEach(function(el) {
-    if(!el.value.trim()) { el.style.borderColor='var(--R)'; ok=false; }
-    else el.style.borderColor='';
+async function submitForm() {
+  var vn = document.getElementById('cf-vn');
+  var em = document.getElementById('cf-email');
+
+  var ok = true;
+
+  [vn, em].forEach(function(el) {
+    if (!el.value.trim()) {
+      el.style.borderColor = 'var(--R)';
+      ok = false;
+    } else {
+      el.style.borderColor = '';
+    }
   });
-  if(!ok) return;
-  document.getElementById('cf-form').style.display='none';
-  document.getElementById('cf-success').classList.add('show');
+
+  if (!ok) return;
+
+  var data = {
+    Vorname: document.getElementById('cf-vn').value,
+    Nachname: document.getElementById('cf-nn').value,
+    Telefonnummer: document.getElementById('cf-tel').value,
+    Email: document.getElementById('cf-email').value,
+    Geburtstag:
+      document.getElementById('cf-tag').value + '.' +
+      document.getElementById('cf-monat').value + '.' +
+      document.getElementById('cf-jahr').value,
+    Verein: document.getElementById('cf-verein').value,
+    Position: document.getElementById('cf-pos').value,
+    Interesse: document.getElementById('cf-paket').value,
+    Nachricht: document.getElementById('cf-msg').value
+  };
+
+  try {
+    var response = await fetch('https://formspree.io/f/mqpzgvkv', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      document.getElementById('cf-form').style.display = 'none';
+      document.getElementById('cf-success').classList.add('show');
+    } else {
+      alert('Beim Senden ist ein Fehler aufgetreten. Bitte versuche es erneut.');
+    }
+
+  } catch (error) {
+    alert('Die Nachricht konnte nicht gesendet werden. Bitte versuche es erneut.');
+  }
+}
 }
 </script>
 
