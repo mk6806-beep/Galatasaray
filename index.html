@@ -1075,7 +1075,7 @@ Fußballtraining für Kinder und Jugendliche von U5 bis U19 in Bischofsheim bei 
             </div>
             <div class="cf-group">
               <label class="cf-label">E-Mail *</label>
-              <input class="cf-input" type="email" id="cf-email" name="E-Mail" placeholder="mail@beispiel.de" required/>
+              <input class="cf-input" type="email" id="cf-email" name="email" placeholder="mail@beispiel.de" required/>
             </div>
             <div class="cf-group cf-full">
               <label class="cf-label">Geburtstag</label>
@@ -1224,7 +1224,7 @@ async function submitForm() {
     Vorname: document.getElementById('cf-vn').value,
     Nachname: document.getElementById('cf-nn').value,
     Telefonnummer: document.getElementById('cf-tel').value,
-    Email: document.getElementById('cf-email').value,
+    email: document.getElementById('cf-email').value,
     Geburtstag:
       document.getElementById('cf-tag').value + '.' +
       document.getElementById('cf-monat').value + '.' +
