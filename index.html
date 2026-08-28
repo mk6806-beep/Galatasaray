@@ -652,7 +652,24 @@ img,svg,video{max-width:100%;height:auto}
 .au-lead p{font-size:.98rem;line-height:1.85;color:rgba(255,255,255,.82);margin-bottom:1.1rem}
 .au-lead p:last-child{margin-bottom:0}
 .au-lead strong{color:var(--W);font-weight:700}
+@media(max-width:520px){
+  .hero{
+    display:flex;
+    flex-direction:column;
+    min-height:auto;
+  }
 
+  .hero-right{
+    order:1;
+    padding:4.5rem 1rem 0;
+  }
+
+  .hero-left{
+    order:2;
+    padding:1rem 1rem 2rem;
+    justify-content:flex-start;
+  }
+}
 </style>
 <script type="application/ld+json">
 {
